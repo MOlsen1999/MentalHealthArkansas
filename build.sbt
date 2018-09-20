@@ -10,8 +10,11 @@ crossScalaVersions := Seq("2.11.12", "2.12.4")
 
 libraryDependencies += guice
 
-// Test Database
-libraryDependencies += "com.h2database" % "h2" % "1.4.197"
+// Database
+libraryDependencies += javaJpa
+libraryDependencies += javaJdbc
+libraryDependencies += "org.hibernate" % "hibernate-core" % "5.3.5.Final"
+libraryDependencies += "org.mariadb.jdbc" % "mariadb-java-client" % "2.3.0"
 
 // Testing libraries for dealing with CompletionStage...
 libraryDependencies += "org.assertj" % "assertj-core" % "3.6.2" % Test
