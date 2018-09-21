@@ -1,4 +1,9 @@
 package models;
 
-public class ProviderLogIn {
+import javax.persistence.Entity;
+
+@Entity
+public class ProviderLogIn
+{
+
 }
