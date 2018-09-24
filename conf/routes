@@ -13,5 +13,6 @@ GET     /message                    controllers.AsyncController.message
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 GET     /home                       controllers.MHAHomeController.getMHAHome
 GET     /providersearch                       controllers.MHAHomeController.getProviderSearch
+POST    /returnpage                               controllers.MHAHomeController.postReturnInfo
 GET     /iamaprovider                       controllers.MHAHomeController.getProviderInfo
-GET     /returnpage                      controllers.MHAHomeController.getReturnInfo
+GET     /returnpage                  controllers.MHAHomeController.getReturnInfo
