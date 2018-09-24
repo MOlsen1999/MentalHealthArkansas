@@ -10,12 +10,10 @@ public class Therapy
     private Integer therapyId;
     private String therapyName;
 
-    public Therapy(Integer therapyId, String therapyName) {
-        this.therapyId = therapyId;
-        this.therapyName = therapyName;
-        }
 
-    public Integer getTherapyId() {
+
+    public Integer getTherapyId()
+    {
         return therapyId;
     }
 

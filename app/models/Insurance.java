@@ -8,18 +8,15 @@ public class Insurance
 {
     @Id
     private Integer insuranceId;
-    private Integer insuranceName;
+    private String insuranceName;
 
-    public Insurance(Integer insuranceId, Integer insuranceName) {
-        this.insuranceId = insuranceId;
-        this.insuranceName = insuranceName;
-    }
+
 
     public Integer getInsuranceId() {
         return insuranceId;
     }
 
-    public Integer getInsuranceName() {
+    public String getInsuranceName() {
         return insuranceName;
     }
 
@@ -27,7 +24,7 @@ public class Insurance
         this.insuranceId = insuranceId;
     }
 
-    public void setInsuranceName(Integer insuranceName) {
+    public void setInsuranceName(String insuranceName) {
         this.insuranceName = insuranceName;
     }
 

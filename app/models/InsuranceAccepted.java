@@ -12,7 +12,8 @@ public class InsuranceAccepted
     private Integer insuranceId;
 
 
-    public InsuranceAccepted(Integer insuranceacceptedId, Integer nameId, Integer insuranceId) {
+    public InsuranceAccepted(Integer insuranceacceptedId, Integer nameId, Integer insuranceId)
+    {
         this.insuranceacceptedId = insuranceacceptedId;
         this.nameId = nameId;
         this.insuranceId = insuranceId;

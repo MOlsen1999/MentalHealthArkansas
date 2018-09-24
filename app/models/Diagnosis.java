@@ -13,11 +13,6 @@ public class Diagnosis
     private String diagnosisName;
     private String description;
 
-    public Diagnosis(Integer diagnosisId, String diagnosisName, String description) {
-        this.diagnosisId = diagnosisId;
-        this.diagnosisName = diagnosisName;
-        this.description = description;
-    }
 
     public Integer getDiagnosisId() {
         return diagnosisId;

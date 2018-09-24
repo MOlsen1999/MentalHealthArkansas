@@ -10,25 +10,23 @@ public class Title
     private Integer titleid;
     private String titleName;
 
-
-    public Title(int titleid, String titleName) {
-        this.titleid = titleid;
-        this.titleName = titleName;
-    }
-
-    public int getTitleid() {
+    public int getTitleId()
+    {
         return titleid;
     }
 
-    public String getTitleName() {
+    public String getTitleName()
+    {
         return titleName;
     }
 
-    public void setTitleid(int titleid) {
+    public void setTitleid(int titleid)
+    {
         this.titleid = titleid;
     }
 
-    public void setTitleName(String titleName) {
+    public void setTitleName(String titleName)
+    {
         this.titleName = titleName;
     }
 }

@@ -4,22 +4,21 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Expertise
+public class SpecialExpertise
 {
     @Id
    private Integer expertiseId;
    private String expertiseName;
 
-    public Expertise(Integer expertiseId, String expertiseName) {
-        this.expertiseId = expertiseId;
-        this.expertiseName = expertiseName;
-    }
 
-    public Integer getExpertiseId() {
+
+    public Integer getExpertiseId()
+    {
         return expertiseId;
     }
 
-    public String getExpertiseName() {
+    public String getExpertiseName()
+    {
         return expertiseName;
     }
 

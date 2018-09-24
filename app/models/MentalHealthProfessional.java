@@ -21,21 +21,7 @@ public class MentalHealthProfessional
     private Integer suffixId;
 
 
-    public MentalHealthProfessional(Integer nameId, Integer titleId, String lastName, String firstName, String address, String city, String stateId, Integer zipcode, Integer organizationId, Integer minPatientAge, Integer maxPatientAge, Integer expertiseId, Integer suffixId) {
-        this.nameId = nameId;
-        this.titleId = titleId;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.address = address;
-        this.city = city;
-        this.stateId = stateId;
-        this.zipcode = zipcode;
-        this.organizationId = organizationId;
-        this.minPatientAge = minPatientAge;
-        this.maxPatientAge = maxPatientAge;
-        this.expertiseId = expertiseId;
-        this.suffixId = suffixId;
-    }
+
 
     public Integer getNameId() {
         return nameId;
