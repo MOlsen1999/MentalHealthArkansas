@@ -22,7 +22,6 @@ public class MentalHealthProfessional
 
 
 
-
     public Integer getNameId() {
         return nameId;
     }

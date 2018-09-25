@@ -7,25 +7,26 @@ import javax.persistence.Id;
 public class Suffix
 {
     @Id
-    private Integer siffixId;
+    private Integer suffixId;
     private String suffix;
 
 
-    public Suffix(Integer siffixId, String suffix) {
-        this.siffixId = siffixId;
+    public Suffix(Integer siffixId, String suffix)
+    {
+        this.suffixId = siffixId;
         this.suffix = suffix;
     }
 
-    public Integer getSiffixId() {
-        return siffixId;
+    public Integer getSuffixId() {
+        return suffixId;
     }
 
     public String getSuffix() {
         return suffix;
     }
 
-    public void setSiffixId(Integer siffixId) {
-        this.siffixId = siffixId;
+    public void setSuffixId(Integer suffixId) {
+        this.suffixId = suffixId;
     }
 
     public void setSuffix(String suffix) {

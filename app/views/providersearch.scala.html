@@ -7,12 +7,11 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
     <title>Provider search</title>
 </head>
 <body>
-<form method = "POST">
-    @helper.CSRF.formField
+
 
 <h1 align="center">Provider Search</h1>
 
-<label for="title">Profession</label>
+<label for="title">Title</label>
 <select type="text" id="title">
     @for(title <- titles) {
     <option value="@title.getTitleId">@title.getTitleName</option>
@@ -81,8 +80,11 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
 </form><br><br>
 
 <br><br>
+<form action="@routes.MHAHomeController.getMentalHealthProfessionalDetail" method="GET">
+    @helper.CSRF.formField
+    <input type="submit" value="Search for Provider">
 </form>
-<input type="submit" value="Search">
+
 
 </body>
 </html>

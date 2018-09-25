@@ -7,12 +7,12 @@ import javax.persistence.Id;
 public class Title
 {
     @Id
-    private Integer titleid;
+    private Integer titleId;
     private String titleName;
 
     public int getTitleId()
     {
-        return titleid;
+        return titleId;
     }
 
     public String getTitleName()
@@ -20,9 +20,9 @@ public class Title
         return titleName;
     }
 
-    public void setTitleid(int titleid)
+    public void setTitleId(int titleId)
     {
-        this.titleid = titleid;
+        this.titleId = titleId;
     }
 
     public void setTitleName(String titleName)
