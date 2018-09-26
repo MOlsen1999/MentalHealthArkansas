@@ -6,8 +6,16 @@
 </head>
 <body>
 <h1 align="center">Arkansas Mental Health Services Referral Guide</h1>
-<button align="center" type="button"  class="btn" >I Am A Provider</button>
-<button  align="center" type="button"  class="btn">I Am Searching For A Provider</button>
 
+<form action="@routes.MHAHomeController.getProviderInfo" method="GET">
+    @helper.CSRF.formField
+<button align="center" type="button"  class="btn" >I Am A Provider</button>
+</form>
+
+
+<form action="@routes.MHAHomeController.getProviderSearch" method="GET">
+    @helper.CSRF.formField
+<button  align="center" type="button"  class="btn">I Am Searching For A Provider</button>
+</form>
 </body>
 </html>

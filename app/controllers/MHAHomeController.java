@@ -10,6 +10,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import javax.inject.Inject;
+import javax.naming.Name;
 import java.util.List;
 
 
@@ -87,16 +88,53 @@ public class MHAHomeController extends Controller
         return ok(views.html.iamaprovider.render());
     }
 
-    public Result postProviderInfo()
+    @Transactional
+    public Result postProviderInfo(int nameId)
     {
+
+        /*String sql ="SELECT NEW  models.MentalHealthProfessional t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber " +
+            " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
+            "JOIN Suffix s ON m.suffixId = s.suffixId";*/
+
+   MentalHealthProfessional mentalHealthProfessional = jpaApi.em().createQuery(sql,MentalHealthProfessional.class).setParameter("titleId", titleId).getResultList();
+
+        DynamicForm form = formFactory.form().bindFromRequest();
+
+        int titleId = Integer.parseInt(form.get("titleName"));
+        String firstName = form.get("firstName");
+        String lastName = form.get("lastName");
+        String address = form.get("address");
+        String city = form.get("city");
+        String stateId = form.get("stateId");
+        int zipcode = Integer.parseInt(form.get("zipcode"));
+        String phone = form.get("phone");
+        int languageId = Integer.parseInt(form.get("languageId"));
+        String insuranceId = form.get("insuranceId");
+        String diagnosisId = form.get("diagnosisName");
+        String expertiseName = form.get("expertiseName");
+        String therapyName = form.get("therapyName");
+
+        mentalHealthProfessional.setTitleId(titleId);
+        mentalHealthProfessional.setFirstName(firstName);
+        mentalHealthProfessional.setLastName(lastName);
+        mentalHealthProfessional.setAddress(address);
+        mentalHealthProfessional.setCity(city);
+        mentalHealthProfessional.setStateId(stateId);
+        mentalHealthProfessional.setZipcode(zipcode);
+        mentalHealthProfessional.setPhoneNumber(phone);
+        mentalHealthProfessional.setLanguageId(languageId);
+
+
+
+
+
         return ok(views.html.providerdbinputreturnpage.render());
     }
+
     @Transactional(readOnly = true)
-
-
     public Result getMentalHealthProfessionalDetail()
     {
-        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix) " +
+        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber) " +
                 " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
                 "JOIN Suffix s ON m.suffixId = s.suffixId";
 

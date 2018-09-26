@@ -18,8 +18,10 @@ public class MentalHealthProfessionalDetail
     private Integer maxPatientAge;
     private Integer suffixId;
     private String suffix;
+    private String phoneNumber;
 
-    public MentalHealthProfessionalDetail(String titleName, String lastName, String firstName, String address, String city, String stateId, Integer zipcode, Integer minPatientAge, Integer maxPatientAge, Integer suffixId, String suffix) {
+
+    public MentalHealthProfessionalDetail(String titleName, String lastName, String firstName, String address, String city, String stateId, Integer zipcode, Integer minPatientAge, Integer maxPatientAge, Integer suffixId, String suffix, String phoneNumber) {
         this.titleName = titleName;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -31,6 +33,7 @@ public class MentalHealthProfessionalDetail
         this.maxPatientAge = maxPatientAge;
         this.suffixId = suffixId;
         this.suffix = suffix;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getTitleName() {
@@ -77,5 +80,10 @@ public class MentalHealthProfessionalDetail
     public String getSuffix()
     {
         return suffix;
+    }
+
+    public String getPhoneNumber()
+    {
+        return phoneNumber;
     }
 }

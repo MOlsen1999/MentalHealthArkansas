@@ -10,6 +10,13 @@ public class Language
     private Integer languageId;
     private String languageName;
 
+    public void setLanguageId(Integer languageId) {
+        this.languageId = languageId;
+    }
+
+    public void setLanguageName(String languageName) {
+        this.languageName = languageName;
+    }
 
     public Integer getLanguageId()
     {

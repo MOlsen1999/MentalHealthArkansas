@@ -19,8 +19,29 @@ public class MentalHealthProfessional
     private Integer maxPatientAge;
     private Integer expertiseId;
     private Integer suffixId;
+    private String phoneNumber;
+    private Integer languageId;
 
 
+
+
+
+    public void setLanguageId(Integer languageId) {
+        this.languageId = languageId;
+    }
+
+    public Integer getLanguageId() {
+        return languageId;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber()
+    {
+        return phoneNumber;
+    }
 
     public Integer getNameId() {
         return nameId;

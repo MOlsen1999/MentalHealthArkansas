@@ -6,26 +6,42 @@
 </head>
 <body>
 <h1 align="center">I Am A Provider Here Is My DB Info</h1>
-<label for="title">Profession</label>
+<form action="@routes.MHAHomeController.postProviderInfo" method="POST">
+    @helper.CSRF.formField
+<label for="title">Title</label>
 <select type="text" id="title">
     <option value="Doctor">Psychiatrist</option>
     <option value="therapist">Therapist</option>
     <option value="examiner">Psychological Examiner</option>
 
 </select><br><br>
+<label for="firstname">First Name: </label>
+<input type="text" class="form-control" id="firstname" name="firstname" value="First Name"><br><br>
 
-<label for="agerange">Age Range</label>
+<label for="lastname">Last Name: </label>
+<input type="text" class="form-control" id="lastname" name="Lastname" value="Last Name"><br><br>
+
+<label for="agerange">Patient Age Range</label>
 <select type="text" id="agerange">
     <option value="under5">Under 5</option>
     <option value="sixtotwelve">6-12</option>
     <option value="twelvetoseventeen">12-17</option>
     <option value="seventeentosixtyfour">17-64</option>
     <option value="sixtyfiveandover">65 & Over</option>
-    <option value="other">Other</option>
+
 </select><br><br>
 
-<label for="location">Location: </label>
-<input type="text" class="form-control" id="location" name="location" value="City"><br><br>
+<label for="address">Address: </label>
+<input type="text" class="form-control" id="address" name="address" value="Address"><br><br>
+
+<label for="city">City: </label>
+<input type="text" class="form-control" id="city" name="city" value="City"><br><br>
+
+<label for="state">State:</label>
+<input type="text" class="form-control" id="state" name="state" value="State"><br><br>
+
+<label for="phonenumber">Phone Number:</label>
+<input type="text" class="form-control" id="phonenumber" name="phonenumber" value="Phone Number"><br><br>
 
 <label for="languages">Languages Spoken</label>
 <select type="text" id="languages">
@@ -49,7 +65,7 @@
 
 
 
-<label for="diagnosis">Suspected Diagnosis</label>
+<label for="diagnosis">I Prefer Seeing Patients with these Diagnoses</label>
 <form action="/action_page.php">
     <input type="checkbox" name="dia1" value="neuro"> Nerodevelopmental Disorders
     <input type="checkbox" name="dia2" value="schiz"> Schizophrenia Spectrum Disorders
@@ -103,8 +119,10 @@
 
 </form><br><br>
 
-<br><br>
-<input type="submit" value="Submit">
+<br>
+
+<input type="submit" value="Save">
+</form>
 </body>
 </html>
 

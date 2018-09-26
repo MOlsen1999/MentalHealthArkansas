@@ -9,6 +9,8 @@ scalaVersion := "2.12.6"
 crossScalaVersions := Seq("2.11.12", "2.12.4")
 
 libraryDependencies += guice
+libraryDependencies += "org.webjars" % "bootstrap" % "4.1.3"
+libraryDependencies += "com.amazonaws" % "aws-java-sdk" % "1.11.415"
 
 // Database
 libraryDependencies += javaJpa

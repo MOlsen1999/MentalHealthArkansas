@@ -15,6 +15,7 @@
         <th>Address</th>
         <th>City</th>
         <th>State</th>
+        <th>Phone Number</th>
         <th>Zip Code</th>
         <th>Age Range</th>
         <th>Suffix</th>
@@ -23,12 +24,13 @@
 
     @for(mentalhealthprofessionaldetail <- mentalhealthprofessionaldetail) {
                 <tr>
-                    <td>@mentalhealthprofessionaldetail.getTitleName</td>
+                    <td><a href="/views/providerprofilepage">@mentalhealthprofessionaldetail.getTitleName</a></td>
                     <td href="@mentalhealthprofessionaldetail.getFirstName">@mentalhealthprofessionaldetail.getFirstName</td>
                     <td>@mentalhealthprofessionaldetail.getLastName</td>
                     <td>@mentalhealthprofessionaldetail.getAddress</td>
                     <td>@mentalhealthprofessionaldetail.getCity</td>
                     <td>@mentalhealthprofessionaldetail.getStateId</td>
+                    <td>@mentalhealthprofessionaldetail.getPhoneNumber</td>
                     <td>@mentalhealthprofessionaldetail.getZipcode</td>
                     <td>@mentalhealthprofessionaldetail.getMinPatientAge - @mentalhealthprofessionaldetail.getMaxPatientAge</td>
                     <td>@mentalhealthprofessionaldetail.getSuffix</td>
