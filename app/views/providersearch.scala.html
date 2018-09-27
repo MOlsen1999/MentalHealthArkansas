@@ -58,14 +58,14 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
     <label for="diagnosis">Suspected Diagnosis</label><br>
         <form action="/action_page.php">
             @for(diagnosis <- diagnosis) {
-            <input type="checkbox" name="dia1" value="@diagnosis.getDiagnosisId"> @diagnosis.getDiagnosisName
+            <input type="checkbox" name="diagnosis" value="@diagnosis.getDiagnosisId"> @diagnosis.getDiagnosisName
             }
         </form><br><br>
 
                         <label for="expertise">Special Expertise</label>
                         <form action="/action_page.php">
                             @for(specialexpertise <- specialexpertise) {
-                            <input type="checkbox" name="se1" value="@specialexpertise.getExpertiseId"> @specialexpertise.getExpertiseName
+                            <input type="checkbox" name="expertise" value="@specialexpertise.getExpertiseId"> @specialexpertise.getExpertiseName
                             }
 
                         </form><br><br>
@@ -73,7 +73,7 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
 <label for="treatment">Treatment Modalities Offered</label>
 <form action="/action_page.php">
     @for(therapy <- therapy) {
-    <input type="checkbox" name="tmo1" value="therapy.getTherapyId"> @therapy.getTherapyName
+    <input type="checkbox" name="therapy" value="therapy.getTherapyId"> @therapy.getTherapyName
     }
 
 

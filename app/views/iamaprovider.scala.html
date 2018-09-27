@@ -1,3 +1,6 @@
+@(titles : List[Title], mentalhealthprofessional : List[MentalHealthProfessional], insurances : List[Insurance], diagnosis : List[Diagnosis],
+specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : List[Language])
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +9,16 @@
 </head>
 <body>
 <h1 align="center">I Am A Provider Here Is My DB Info</h1>
-<form action="@routes.MHAHomeController.postProviderInfo" method="POST">
-    @helper.CSRF.formField
-<label for="title">Title</label>
-<select type="text" id="title">
-    <option value="Doctor">Psychiatrist</option>
-    <option value="therapist">Therapist</option>
-    <option value="examiner">Psychological Examiner</option>
 
+
+    <label for="title">Title</label>
+    <select type="text" id="title">
+        @for(title <- titles) {
+        <option value="@title.getTitleId">@title.getTitleName</option>
+        }
 </select><br><br>
+
+
 <label for="firstname">First Name: </label>
 <input type="text" class="form-control" id="firstname" name="firstname" value="First Name"><br><br>
 
@@ -43,84 +47,48 @@
 <label for="phonenumber">Phone Number:</label>
 <input type="text" class="form-control" id="phonenumber" name="phonenumber" value="Phone Number"><br><br>
 
-<label for="languages">Languages Spoken</label>
-<select type="text" id="languages">
-    <option value="english">English</option>
-    <option value="spanish">Spanish</option>
-    <option value="french">French</option>
-    <option value="German">German</option>
-    <option value="asl">ASL</option>
-</select><br><br>
+    <label for="languages">Language </label>
+    <select type="text" id="languages">
+        @for(language <- language) {
+        <option value="@language.getLanguageId">@language.getLanguageName</option>
+        }
+    </select><br><br>
 
-<label for="insurance">Insuraces Accepted</label>
-<select type="text" id="insurance">
-    <option value="bcbs">BCBS</option>
-    <option value="United">United Healthcare</option>
-    <option value="aetna">AETNA</option>
-    <option value="qualchoice">Qualchoice</option>
-    <option value="tricare">Tricare</option>
-    <option value="medicare">Medicare</option>
-    <option value="medicaid">Medicaid</option>
-</select><br><br>
-
-
-
-<label for="diagnosis">I Prefer Seeing Patients with these Diagnoses</label>
+        <label for="insurance">Insuraces Accepted</label>
 <form action="/action_page.php">
-    <input type="checkbox" name="dia1" value="neuro"> Nerodevelopmental Disorders
-    <input type="checkbox" name="dia2" value="schiz"> Schizophrenia Spectrum Disorders
-    <input type="checkbox" name="dia3" value="bipolar" > Bipolar and Related Disorders <br>
-    <input type="checkbox" name="dia4" value="depression"> Depressive Disorders
-    <input type="checkbox" name="dia5" value="anxeity"> Anxiety Disorders
-    <input type="checkbox" name="dia6" value="ocd"> Obsessive Compulsive and Related Disorders<br>
-    <input type="checkbox" name="dia7" value="trauma"> Trauma and Related Disorders
-    <input type="checkbox" name="dia8" value="dissociative"> Dissociative Disorders
-    <input type="checkbox" name="dia9" value="somatic"> Somatic Symptom and Related Disorders<br>
-    <input type="checkbox" name="dia10" value="eating"> Feeding and Eating Disorders
-    <input type="checkbox" name="dia11" value="elimination"> Elimination Disorders
-    <input type="checkbox" name="dia12" value="sleep"> Sleep-Wake Disorders<br>
-    <input type="checkbox" name="dia13" value="sexual"> Sexual Dysfunction
-    <input type="checkbox" name="dia14" value="gender"> Gender Dysphoria
-    <input type="checkbox" name="dia15" value="disruptive"> Disruptive, Impulse-Control, Intermittent Explosive Disorder, Conduct Disorder<br>
-    <input type="checkbox" name="dia16" value="substance"> Substance-Related and Addictive Disorders
-    <input type="checkbox" name="dia17" value="neurocognitive">Neurocognitive Disorders
-    <input type="checkbox" name="dia18" value="personality"> Personality Disorders
-    <input type="checkbox" name="dia19" value="paraphilic"> Paraphilic Disorders<br>
-    <input type="text" class="form-control" id="other" name="other" value="Search">  Other Mental Disorders or Condition<br>
+            @for(insurance <- insurances) {
+            <input type="checkbox" name="insurance[]" value="@insurance.getInsuranceId">@insurance.getInsuranceName</input>
+            }
 </form><br><br>
 
-<label for="special">Special Expertise</label>
-<form action="/action_page.php">
-    <input type="checkbox" name="se1" value="lgbtq"> LGBTQ
-    <input type="checkbox" name="se2" value="pregnancy"> Pregnancy and Post-Partum
-    <input type="checkbox" name="se3" value="women" > Women's Mental Health <br>
-    <input type="checkbox" name="se4" value="susbstance"> Substance Abuse
-    <input type="checkbox" name="se5" value="christian"> Christian Perspective
-    <input type="checkbox" name="se6" value="developmental"> Developmental Delays<br>
+
+
+        <label for="diagnosis">I Prefer Seeing Patients with the Following Diagnosis</label><br>
+        <form action="/action_page.php">
+            @for(diagnosis <- diagnosis) {
+            <input type="checkbox" name="diagnosis[]" value="@diagnosis.getDiagnosisId"> @diagnosis.getDiagnosisName
+            }
 </form><br><br>
 
-<label for="treatment">Treatment Modalities Offered</label>
-<form action="/action_page.php">
-    <input type="checkbox" name="tmo1" value="cog"> Cognitive Behavior Therapy
-    <input type="checkbox" name="tmo2" value="eye"> Eye Movement Desensitization and Reprocessing
-    <input type="checkbox" name="tmo3" value="dialect" > Dialectical Behavior Therapy <br>
-    <input type="checkbox" name="tmo4" value="marriage"> Marriage Counseling
-    <input type="checkbox" name="tmo5" value="family"> Family Therapy
-    <input type="checkbox" name="tmo6" value="habit"> Habit Reversal Therapy<br>
-    <input type="checkbox" name="tmo7" value="inter"> Interpersonal Therapy
-    <input type="checkbox" name="teo9" value="supp"> Supportive Therapy
-    <input type="checkbox" name="tmo10" value="play" > Play Therapy <br>
-    <input type="checkbox" name="tmo11" value="psych"> Psychodynamic Therapy
-    <input type="checkbox" name="tmo12" value="group"> Group Therapy
-    <input type="checkbox" name="tmo13" value="mind"> Mindfulness-Based Therapyy<br>
-    <input type="checkbox" name="tmo14" value="social"> Social Skills Training
-    <input type="checkbox" name="tmo15" value="habit"> Habit Reversal Therapy<br>
+        <label for="expertise">Special Expertise</label>
+        <form action="/action_page.php">
+            @for(specialexpertise <- specialexpertise) {
+            <input type="checkbox" name="expertise[]" value="@specialexpertise.getExpertiseId"> @specialexpertise.getExpertiseName
+            }
+</form><br><br>
+
+        <label for="treatment">Treatment Modalities Offered</label>
+        <form action="/action_page.php">
+            @for(therapy <- therapy) {
+            <input type="checkbox" name="treatment[]" value="therapy.getTherapyId"> @therapy.getTherapyName
+            }
 
 
 </form><br><br>
 
 <br>
-
+<form action="@routes.MHAHomeController.postProviderInfo" method="POST">
+    @helper.CSRF.formField
 <input type="submit" value="Save">
 </form>
 </body>

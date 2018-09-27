@@ -16,11 +16,13 @@ public class Insurance
         return insuranceId;
     }
 
-    public String getInsuranceName() {
+    public String getInsuranceName()
+    {
         return insuranceName;
     }
 
-    public void setInsuranceId(Integer insuranceId) {
+    public void setInsuranceId(Integer insuranceId)
+    {
         this.insuranceId = insuranceId;
     }
 

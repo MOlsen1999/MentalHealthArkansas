@@ -3,22 +3,20 @@ package models;
 import scala.Int;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class ProfessionalTherapy
 {
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer professtionaltherapyId;
     private Integer therapyId;
     private Integer nameId;
 
 
-    public ProfessionalTherapy(Integer professtionaltherapyId, Integer therapyId, Integer nameId) {
-        this.professtionaltherapyId = professtionaltherapyId;
-        this.therapyId = therapyId;
-        this.nameId = nameId;
-    }
+
 
     public Integer getProfesstionaltherapyId() {
         return professtionaltherapyId;

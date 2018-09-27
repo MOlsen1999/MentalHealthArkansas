@@ -1,43 +1,47 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class ProfessionalDiagnosis
 {
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer professionaldiagnosisId;
     private Integer nameId;
     private Integer diagnosisId;
 
-    public ProfessionalDiagnosis(Integer professionaldiagnosisId, Integer nameId, Integer diagnosisId) {
-        this.professionaldiagnosisId = professionaldiagnosisId;
-        this.nameId = nameId;
-        this.diagnosisId = diagnosisId;
-    }
 
-    public Integer getProfessionaldiagnosisId() {
+
+    public Integer getProfessionaldiagnosisId()
+    {
         return professionaldiagnosisId;
     }
 
-    public Integer getNameId() {
+    public Integer getNameId()
+    {
         return nameId;
     }
 
-    public Integer getDiagnosisId() {
+    public Integer getDiagnosisId()
+    {
         return diagnosisId;
     }
 
-    public void setProfessionaldiagnosisId(Integer professionaldiagnosisId) {
+    public void setProfessionaldiagnosisId(Integer professionaldiagnosisId)
+    {
         this.professionaldiagnosisId = professionaldiagnosisId;
     }
 
-    public void setNameId(Integer nameId) {
+    public void setNameId(Integer nameId)
+    {
         this.nameId = nameId;
     }
 
-    public void setDiagnosisId(Integer diagnosisId) {
+    public void setDiagnosisId(Integer diagnosisId)
+    {
         this.diagnosisId = diagnosisId;
     }
 }
