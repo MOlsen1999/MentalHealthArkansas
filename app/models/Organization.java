@@ -7,7 +7,7 @@ import javax.persistence.Id;
 public class Organization
 {  @Id
     private Integer organizationId;
-    private Integer organizationName;
+    private String  organizationName;
 
 
 
@@ -15,7 +15,7 @@ public class Organization
         return organizationId;
     }
 
-    public Integer getOrganizationName() {
+    public String  getOrganizationName() {
         return organizationName;
     }
 
@@ -23,7 +23,7 @@ public class Organization
         this.organizationId = organizationId;
     }
 
-    public void setOrganizationName(Integer organizationName) {
+    public void setOrganizationName(String  organizationName) {
         this.organizationName = organizationName;
     }
 

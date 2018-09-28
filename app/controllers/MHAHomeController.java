@@ -13,6 +13,7 @@ import scala.Int;
 
 import javax.inject.Inject;
 import javax.naming.Name;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -111,7 +112,7 @@ public class MHAHomeController extends Controller
         List<MentalHealthProfessional> cities= jpaApi.em().createQuery(mhpsql,MentalHealthProfessional.class).getResultList();
 
         String organizationsql = "SELECT o FROM Organization o";
-        List<Organization> organizations= jpaApi.em().createQuery(organizationsql,Organization.class).getResultList();
+        List<Organization> organizations =  jpaApi.em().createQuery(organizationsql,Organization.class).getResultList();
 
         String suffixsql = "SELECT s FROM Suffix s";
         List<Suffix>suffixes = jpaApi.em().createQuery(suffixsql,Suffix.class).getResultList();
