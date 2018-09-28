@@ -1,5 +1,5 @@
 @(titles : List[Title], mentalhealthprofessional : List[MentalHealthProfessional], insurances : List[Insurance], diagnosis : List[Diagnosis],
-specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : List[Language], organization : List[Organization])
+specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : List[Language], organization : List[Organization], suffix : List[Suffix])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +28,13 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
 
 <label for="lastname">Last Name: </label>
 <input type="text" class="form-control" id="lastname" name="lastname" value="Last Name"><br><br>
+
+    <label for="suffix">Suffix</label>
+    <select type="suffix" name="suffix" id="suffix">
+        @for(suffix <- suffix) {
+        <option value="@suffix.getSuffixId">@suffix.getSuffix</option>
+        }
+    </select><br><br>
 
 <label for="minage">Minimum Patient Age: </label>
 <input type="text" class="form-control" id="minage" name="minage" value="Minimum Patient Age"><br><br>

@@ -111,9 +111,12 @@ public class MHAHomeController extends Controller
         List<MentalHealthProfessional> cities= jpaApi.em().createQuery(mhpsql,MentalHealthProfessional.class).getResultList();
 
         String organizationsql = "SELECT o FROM Organization o";
-        List<Organization> orgs= jpaApi.em().createQuery(organizationsql,Organization.class).getResultList();
+        List<Organization> organizations= jpaApi.em().createQuery(organizationsql,Organization.class).getResultList();
 
-        return ok(views.html.iamaprovider.render(titles,cities,insurances,diagnoses,expertises,therapies,languages,orgs));
+        String suffixsql = "SELECT s FROM Suffix s";
+        List<Suffix>suffixes = jpaApi.em().createQuery(suffixsql,Suffix.class).getResultList();
+
+        return ok(views.html.iamaprovider.render(titles,cities,insurances,diagnoses,expertises,therapies,languages, organizations, suffixes));
     }
 
     @Transactional
@@ -140,6 +143,11 @@ public class MHAHomeController extends Controller
         String mhpsql = "SELECT m FROM MentalHealthProfessional m";
         List<MentalHealthProfessional> cities= jpaApi.em().createQuery(mhpsql,MentalHealthProfessional.class).getResultList();
 
+        String organizationsql = "SELECT o FROM Organization o";
+        List<Organization> organizations= jpaApi.em().createQuery(organizationsql,Organization.class).getResultList();
+
+        String  suffixsql = "SELECT s FROM Suffix s";
+        List<Suffix>suffixes = jpaApi.em().createQuery(suffixsql,Suffix.class).getResultList();
 
         DynamicForm form = formFactory.form().bindFromRequest();
         Map<String, String[]> map = request().body().asFormUrlEncoded();

@@ -11,11 +11,7 @@ public class Suffix
     private String suffix;
 
 
-    public Suffix(Integer siffixId, String suffix)
-    {
-        this.suffixId = siffixId;
-        this.suffix = suffix;
-    }
+
 
     public Integer getSuffixId() {
         return suffixId;
