@@ -198,32 +198,94 @@ public class MHAHomeController extends Controller
 
 
 
-        MentalHealthProfessional mentalHealthProfessional = new MentalHealthProfessional();
+        String titleIdText = form.get("titleid");
+       Integer titleId;
 
-       /* int titleId = Integer.parseInt(form.get("titleName"));
         String firstName = form.get("firstName");
         String lastName = form.get("lastName");
         String address = form.get("address");
         String city = form.get("city");
         String stateId = form.get("stateId");
-        int zipcode = Integer.parseInt(form.get("zipcode"));
         String phone = form.get("phone");
-        int languageId = Integer.parseInt(form.get("languageId"));
-        String insuranceId = form.get("insuranceId");
-        String diagnosisId = form.get("diagnosisName");
-        String expertiseName = form.get("expertiseName");
-        String therapyName = form.get("therapyName");
+        String result;
+        String minPatientAgeText = form.get("minPatientAge");
+        Integer minPatientAge ;
 
-        mentalHealthProfessional.setTitleId(titleId);
-        mentalHealthProfessional.setFirstName(firstName);
-        mentalHealthProfessional.setLastName(lastName);
-        mentalHealthProfessional.setAddress(address);
-        mentalHealthProfessional.setCity(city);
-        mentalHealthProfessional.setStateId(stateId);
-        mentalHealthProfessional.setZipcode(zipcode);
-        mentalHealthProfessional.setPhoneNumber(phone);
-        mentalHealthProfessional.setLanguageId(languageId);*/
+        if(minPatientAgeText == null || minPatientAgeText.equals(""))
+        {
+            minPatientAge = null;
+        }
+        else
+        {
+            minPatientAge = Integer.parseInt(minPatientAgeText);
+        }
 
+        String maxPatientAgeText = form.get("MaxPatientAge");
+        Integer maxPatientAge ;
+
+        if(maxPatientAgeText == null || maxPatientAgeText.equals(""))
+        {
+            maxPatientAge = null;
+        }
+        else
+        {
+            maxPatientAge = Integer.parseInt(maxPatientAgeText);
+        }
+
+        String zipcodeText = form.get("zipcode");
+        Integer zipcode;
+
+        if(zipcodeText == null || zipcodeText.equals(""))
+        {
+            zipcode = null;
+        }
+        else
+        {
+            zipcode = Integer.parseInt(zipcodeText);
+        }
+
+
+
+        String languageIdText = form.get("languageId");
+        Integer languageId;
+
+        if(languageIdText == null || languageIdText.equals(""))
+        {
+            languageId = null;
+        }
+        else
+        {
+            languageId = Integer.parseInt(languageIdText);
+        }
+
+
+        if(titleIdText == null || titleIdText.equals(""))
+        {
+            titleId = null;
+
+            MentalHealthProfessional mentalHealthProfessional = new MentalHealthProfessional();
+            mentalHealthProfessional.setTitleId(titleId);
+            mentalHealthProfessional.setFirstName(firstName);
+            mentalHealthProfessional.setLastName(lastName);
+            mentalHealthProfessional.setMinPatientAge(minPatientAge);
+            mentalHealthProfessional.setMaxPatientAge(maxPatientAge);
+            mentalHealthProfessional.setAddress(address);
+            mentalHealthProfessional.setCity(city);
+            mentalHealthProfessional.setStateId(stateId);
+            mentalHealthProfessional.setZipcode(zipcode);
+            mentalHealthProfessional.setPhoneNumber(phone);
+            mentalHealthProfessional.setLanguageId(languageId);
+
+
+
+            jpaApi.em().persist(mentalHealthProfessional);
+            result = "Saved";
+
+        }
+        else
+        {
+            titleId = Integer.parseInt(titleIdText);
+        }
 
 
 
