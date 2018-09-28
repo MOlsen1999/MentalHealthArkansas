@@ -9,6 +9,7 @@ import play.db.jpa.JPAApi;
 import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
+import scala.Int;
 
 import javax.inject.Inject;
 import javax.naming.Name;
@@ -109,7 +110,10 @@ public class MHAHomeController extends Controller
         String mhpsql = "SELECT m FROM MentalHealthProfessional m";
         List<MentalHealthProfessional> cities= jpaApi.em().createQuery(mhpsql,MentalHealthProfessional.class).getResultList();
 
-        return ok(views.html.iamaprovider.render(titles,cities,insurances,diagnoses,expertises,therapies,languages));
+        String organizationsql = "SELECT o FROM Organization o";
+        List<Organization> orgs= jpaApi.em().createQuery(organizationsql,Organization.class).getResultList();
+
+        return ok(views.html.iamaprovider.render(titles,cities,insurances,diagnoses,expertises,therapies,languages,orgs));
     }
 
     @Transactional
@@ -155,19 +159,18 @@ public class MHAHomeController extends Controller
 
          }
 
-        String[] expertise = map.get("expertise");
-        Logger.debug("Checkbox: " + form.get("expertise[]"));
+        String expertise = form.get("expertise");
+        Integer expertiseId ;
 
-        if (expertise != null)
+        if(expertise == null || expertise.equals(""))
         {
-            for (String expertiseId:expertise)
-            {
-                SpecialExpertise specialExpertise = new SpecialExpertise();
-                specialExpertise.setExpertiseId(specialExpertise.getExpertiseId());
-                specialExpertise.setExpertiseId(Integer.parseInt(expertiseId));
-                jpaApi.em().persist(specialExpertise);
-            }
+            expertiseId = null;
         }
+        else
+        {
+            expertiseId = Integer.parseInt(expertise);
+        }
+
 
         String[] insurance = map.get("insurance");
         Logger.debug("Checkbox:" + form.get("insurance[]"));
@@ -196,19 +199,33 @@ public class MHAHomeController extends Controller
             }
         }
 
+        String firstName = form.get("firstname");
+        String lastName = form.get("lastname");
 
-
-        String titleIdText = form.get("titleid");
-       Integer titleId;
-
-        String firstName = form.get("firstName");
-        String lastName = form.get("lastName");
         String address = form.get("address");
+
+
         String city = form.get("city");
-        String stateId = form.get("stateId");
-        String phone = form.get("phone");
-        String result;
-        String minPatientAgeText = form.get("minPatientAge");
+
+        String stateId = form.get("state");
+
+        String phone = form.get("phonenumber");
+
+        String organizationIdText = form.get("organization");
+        Integer organizationId;
+
+        if(organizationIdText == null || organizationIdText.equals(""))
+        {
+            organizationId = null;
+        }
+        else
+        {
+            organizationId = Integer.parseInt(organizationIdText);
+        }
+
+
+
+        String minPatientAgeText = form.get("minage");
         Integer minPatientAge ;
 
         if(minPatientAgeText == null || minPatientAgeText.equals(""))
@@ -220,7 +237,7 @@ public class MHAHomeController extends Controller
             minPatientAge = Integer.parseInt(minPatientAgeText);
         }
 
-        String maxPatientAgeText = form.get("MaxPatientAge");
+        String maxPatientAgeText = form.get("maxage");
         Integer maxPatientAge ;
 
         if(maxPatientAgeText == null || maxPatientAgeText.equals(""))
@@ -246,7 +263,7 @@ public class MHAHomeController extends Controller
 
 
 
-        String languageIdText = form.get("languageId");
+        String languageIdText = form.get("language");
         Integer languageId;
 
         if(languageIdText == null || languageIdText.equals(""))
@@ -258,28 +275,13 @@ public class MHAHomeController extends Controller
             languageId = Integer.parseInt(languageIdText);
         }
 
+        String titleIdText = form.get("title");
+        Integer titleId;
 
         if(titleIdText == null || titleIdText.equals(""))
         {
             titleId = null;
 
-            MentalHealthProfessional mentalHealthProfessional = new MentalHealthProfessional();
-            mentalHealthProfessional.setTitleId(titleId);
-            mentalHealthProfessional.setFirstName(firstName);
-            mentalHealthProfessional.setLastName(lastName);
-            mentalHealthProfessional.setMinPatientAge(minPatientAge);
-            mentalHealthProfessional.setMaxPatientAge(maxPatientAge);
-            mentalHealthProfessional.setAddress(address);
-            mentalHealthProfessional.setCity(city);
-            mentalHealthProfessional.setStateId(stateId);
-            mentalHealthProfessional.setZipcode(zipcode);
-            mentalHealthProfessional.setPhoneNumber(phone);
-            mentalHealthProfessional.setLanguageId(languageId);
-
-
-
-            jpaApi.em().persist(mentalHealthProfessional);
-            result = "Saved";
 
         }
         else
@@ -287,10 +289,30 @@ public class MHAHomeController extends Controller
             titleId = Integer.parseInt(titleIdText);
         }
 
+        MentalHealthProfessional mentalHealthProfessional = new MentalHealthProfessional();
+        mentalHealthProfessional.setTitleId(titleId);
+        mentalHealthProfessional.setFirstName(firstName);
+        mentalHealthProfessional.setLastName(lastName);
+        mentalHealthProfessional.setMinPatientAge(minPatientAge);
+        mentalHealthProfessional.setMaxPatientAge(maxPatientAge);
+        mentalHealthProfessional.setAddress(address);
+        mentalHealthProfessional.setCity(city);
+        mentalHealthProfessional.setStateId(stateId);
+        mentalHealthProfessional.setZipcode(zipcode);
+        mentalHealthProfessional.setPhoneNumber(phone);
+        mentalHealthProfessional.setLanguageId(languageId);
+        mentalHealthProfessional.setExpertiseId(expertiseId);
+        mentalHealthProfessional.setOrganizationId(organizationId);
+
+
+
+        jpaApi.em().persist(mentalHealthProfessional);
+
 
 
 
         return ok(views.html.providerdbinputreturnpage.render());
+
     }
 
     @Transactional(readOnly = true)

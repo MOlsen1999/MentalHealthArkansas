@@ -9,10 +9,7 @@ public class Organization
     private Integer organizationId;
     private Integer organizationName;
 
-    public Organization(Integer organizationId, Integer organizationName) {
-        this.organizationId = organizationId;
-        this.organizationName = organizationName;
-    }
+
 
     public Integer getOrganizationId() {
         return organizationId;
