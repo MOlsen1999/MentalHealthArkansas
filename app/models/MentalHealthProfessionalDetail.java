@@ -7,6 +7,7 @@ import javax.persistence.Id;
 public class MentalHealthProfessionalDetail
 {
     @Id
+    private Integer nameId;
     private String titleName;
     private String lastName;
     private String firstName;
@@ -21,7 +22,9 @@ public class MentalHealthProfessionalDetail
     private String phoneNumber;
 
 
-    public MentalHealthProfessionalDetail(String titleName, String lastName, String firstName, String address, String city, String stateId, Integer zipcode, Integer minPatientAge, Integer maxPatientAge, Integer suffixId, String suffix, String phoneNumber) {
+    public MentalHealthProfessionalDetail(Integer nameId, String titleName, String lastName, String firstName, String address, String city, String stateId, Integer zipcode, Integer minPatientAge, Integer maxPatientAge, Integer suffixId, String suffix, String phoneNumber) {
+
+        this.nameId = nameId;
         this.titleName = titleName;
         this.lastName = lastName;
         this.firstName = firstName;

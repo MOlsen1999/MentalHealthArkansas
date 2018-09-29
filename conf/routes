@@ -17,4 +17,5 @@ GET     /providersearch    controllers.MHAHomeController.getProviderSearch
 GET    /providersearchreturnpage                  controllers.MHAHomeController.getMentalHealthProfessionalDetail
 
 GET     /iamaprovider                controllers.MHAHomeController.getProviderInfo
-POST     /providerdbinputreturnpage                  controllers.MHAHomeController.postProviderInfo
+POST     /providerdbinputreturnpage               controllers.MHAHomeController.postProviderInfo
+GET     /providerdbinputreturnpage/:nameId                  controllers.MHAHomeController.getNewMentalHealthProfessional(nameId:Integer)

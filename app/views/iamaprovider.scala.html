@@ -6,6 +6,7 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
 <head>
     <meta charset="UTF-8">
     <title>I Am A Provider</title>
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
 
 </head>
 <body>
@@ -15,8 +16,8 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
 <form action="@routes.MHAHomeController.postProviderInfo" method="POST">
     @helper.CSRF.formField
 
-    <label for="title">Title</label>
-    <select type="text" name="titleId" id="title">
+    <label for="titleId">Title</label>
+    <select type="text" name="titleId" id="titleId">
         @for(title <- titles) {
         <option value="@title.getTitleId">@title.getTitleName</option>
         }

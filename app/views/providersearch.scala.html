@@ -1,10 +1,12 @@
 @(titles : List[Title], insurances : List[Insurance], diagnosis : List[Diagnosis],
-specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : List[Language], mentalhealthprofessional : List[MentalHealthProfessional])
+specialexpertise : List[SpecialExpertise],
+therapy : List[Therapy],language : List[Language], cities : List[String])
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Provider search</title>
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -32,8 +34,8 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
 
 <label for="location">Location: </label>
 <select type="text"  id="location"  value="City">
-    @for(mentalhealthprofessional <- mentalhealthprofessional) {
-    <option value="@mentalhealthprofessional.getCity">@mentalhealthprofessional.getCity</option>
+    @for(city <- cities) {
+    <option value="@city">@city</option>
 
     }
     </select>

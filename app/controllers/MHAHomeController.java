@@ -1,6 +1,7 @@
 package controllers;
 
 import akka.http.javadsl.model.headers.Age;
+import com.amazonaws.services.dynamodbv2.xspec.S;
 import models.*;
 import play.Logger;
 import play.data.DynamicForm;
@@ -58,8 +59,8 @@ public class MHAHomeController extends Controller
         String languagesql = "SELECT l FROM Language l";
         List<Language> languages = jpaApi.em().createQuery(languagesql, Language.class).getResultList();
 
-        String citysql = "SELECT m FROM MentalHealthProfessional m";
-        List<MentalHealthProfessional> cities= jpaApi.em().createQuery(citysql,MentalHealthProfessional.class).getResultList();
+        String citysql = "SELECT DISTINCT m.city FROM MentalHealthProfessional m ORDER by m.city";
+        List<String> cities= jpaApi.em().createQuery(citysql,String.class).getResultList();
 
 
 
@@ -211,6 +212,19 @@ public class MHAHomeController extends Controller
         String firstName = form.get("firstname");
         String lastName = form.get("lastname");
 
+
+        String suffixIdText = form.get("suffix");
+        Integer suffixId;
+
+        if(suffixIdText == null || suffixIdText.equals(""))
+        {
+            suffixId = null;
+        }
+        else
+        {
+            suffixId = Integer.parseInt(suffixIdText);
+        }
+
         String address = form.get("address");
 
 
@@ -284,7 +298,7 @@ public class MHAHomeController extends Controller
             languageId = Integer.parseInt(languageIdText);
         }
 
-        String titleIdText = form.get("title");
+        String titleIdText = form.get("titleId");
         Integer titleId;
 
         if(titleIdText == null || titleIdText.equals(""))
@@ -299,6 +313,7 @@ public class MHAHomeController extends Controller
         }
 
         MentalHealthProfessional mentalHealthProfessional = new MentalHealthProfessional();
+
         mentalHealthProfessional.setTitleId(titleId);
         mentalHealthProfessional.setFirstName(firstName);
         mentalHealthProfessional.setLastName(lastName);
@@ -312,7 +327,7 @@ public class MHAHomeController extends Controller
         mentalHealthProfessional.setLanguageId(languageId);
         mentalHealthProfessional.setExpertiseId(expertiseId);
         mentalHealthProfessional.setOrganizationId(organizationId);
-
+        mentalHealthProfessional.setSuffixId(suffixId);
 
 
         jpaApi.em().persist(mentalHealthProfessional);
@@ -320,25 +335,34 @@ public class MHAHomeController extends Controller
 
 
 
-        return ok(views.html.providerdbinputreturnpage.render());
+        return ok("Saved");
 
     }
 
     @Transactional(readOnly = true)
     public Result getMentalHealthProfessionalDetail()
     {
-        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber) " +
+        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber) " +
                 " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
                 "JOIN Suffix s ON m.suffixId = s.suffixId";
 
         List<MentalHealthProfessionalDetail> name = jpaApi.em().createQuery(sql,MentalHealthProfessionalDetail.class).getResultList();
         return ok(views.html.providersearchreturnpage.render(name));
 
-        /*"SELECT NEW models.ProductDetail(p.productId, p.productName, p.unitPrice, c.categoryName, s.companyName)" +
-                "FROM Product p JOIN Category c ON p.categoryId = c.categoryId " +
-                "JOIN Supplier s ON p.supplierId = s.supplierId";*/
-
-         //String titleName, String lastName, String firstName, String address, String city, String stateId, Integer zipcode, Integer minPatientAge, Integer maxPatientAge, Integer suffixId) {
     }
+
+    @Transactional(readOnly = true)
+    public Result getNewMentalHealthProfessional(int nameId)
+    {
+        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId,  t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber) " +
+                " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
+                "JOIN Suffix s ON m.suffixId = s.suffixId " +
+                " WHERE nameId = :nameId";
+
+        MentalHealthProfessionalDetail name = jpaApi.em().createQuery(sql,MentalHealthProfessionalDetail.class).setParameter("nameId", nameId).getSingleResult();
+
+        return ok(views.html.providerdbinputreturnpage.render(name));
+    }
+
 }
 

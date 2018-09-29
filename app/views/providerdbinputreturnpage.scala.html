@@ -1,10 +1,34 @@
+@(mentalhealthprofessionaldetail : MentalHealthProfessionalDetail)
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Provider DB Input Retun Page</title>
+    <title>Provider DB Input Return Page</title>
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
-<h1 align="center">Provider Database Input Return Page</h1>
+<h1 align="center">Thank You for Your Information</h1>
+
+
+<h1 align="center">@mentalhealthprofessionaldetail.getFirstName @mentalhealthprofessionaldetail.getLastName</h1>
+
+<table align="center" class="table table-striped">
+    <tr>
+        <th>First Name</th><th>Last Name</th><th>Address</th><th>City</th><th>State</th><th>ZipCode</th><th>Phone Number</th><th>Patient Age Range</th>
+    </tr>
+
+    <td>@mentalhealthprofessionaldetail.getFirstName</td>
+    <td>@mentalhealthprofessionaldetail.getLastName</td>
+    <td>@mentalhealthprofessionaldetail.getAddress</td>
+    <td>@mentalhealthprofessionaldetail.getCity</td>
+    <td>@mentalhealthprofessionaldetail.getStateId</td>
+    <td>@mentalhealthprofessionaldetail.getZipcode</td>
+    <td>@mentalhealthprofessionaldetail.getPhoneNumber</td>
+    <td>@mentalhealthprofessionaldetail.getMinPatientAge - @mentalhealthprofessionaldetail.getMaxPatientAge</td>
+
+
+
+
+</table>
 </body>
 </html>
