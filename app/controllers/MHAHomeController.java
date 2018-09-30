@@ -91,6 +91,11 @@ public class MHAHomeController extends Controller
 
 
     {
+        DynamicForm form = formFactory.form().bindFromRequest();
+
+        String title = form.get("title");
+
+
         String sql ="SELECT t FROM Title t";
         List<Title> titles = jpaApi.em().createQuery(sql,Title.class).getResultList();
 
@@ -342,11 +347,32 @@ public class MHAHomeController extends Controller
     @Transactional(readOnly = true)
     public Result getMentalHealthProfessionalDetail()
     {
-        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber) " +
-                " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
-                "JOIN Suffix s ON m.suffixId = s.suffixId";
+        DynamicForm form = formFactory.form().bindFromRequest();
 
-        List<MentalHealthProfessionalDetail> name = jpaApi.em().createQuery(sql,MentalHealthProfessionalDetail.class).getResultList();
+        String title = form.get("titleId");
+        Integer titleId;
+
+        if(title == null || title.equals(""))
+        {
+            titleId = null;
+
+
+        }
+        else
+        {
+            titleId = Integer.parseInt(title);
+        }
+
+
+        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber) " +
+                " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
+                "JOIN Suffix s ON m.suffixId = s.suffixId " +
+                "WHERE m.titleId = :titleId";
+
+        List<MentalHealthProfessionalDetail> name = jpaApi.em().createQuery(sql,MentalHealthProfessionalDetail.class).setParameter("titleId", titleId).getResultList();
+
+
+
         return ok(views.html.providersearchreturnpage.render(name));
 
     }
@@ -362,6 +388,31 @@ public class MHAHomeController extends Controller
         MentalHealthProfessionalDetail name = jpaApi.em().createQuery(sql,MentalHealthProfessionalDetail.class).setParameter("nameId", nameId).getSingleResult();
 
         return ok(views.html.providerdbinputreturnpage.render(name));
+    }
+
+    @Transactional(readOnly = true)
+    public Result getDiagnosisDetails(int diagnosisId)
+    {
+        String diagnosisSQL = "SELECT d FROM Diagnosis d WHERE diagnosisId = :diagnosisId";
+
+        Diagnosis diagnosis = jpaApi.em().createQuery(diagnosisSQL,Diagnosis.class).setParameter("diagnosisId",diagnosisId).getSingleResult();
+
+        String nextDiagnosisIdSQL = "SELECT NEW models.DiagnosisId(MIN(diagnosisId))FROM Diagnosis d WHERE diagnosisId > :diagnosisId";
+        DiagnosisId nextDiagnosisId = jpaApi.em().createQuery(nextDiagnosisIdSQL, DiagnosisId.class).setParameter("diagnosisId", diagnosisId).getSingleResult();
+
+        if (nextDiagnosisId.getId() == null)
+        {
+            String minDiagnosisIdSQL = "SELECT NEW models.DiagnosisId(MIN(diagnosisId)) From Diagnosis d";
+            nextDiagnosisId = jpaApi.em().createQuery(minDiagnosisIdSQL,DiagnosisId.class).getSingleResult();
+        }
+
+        String previousDiagnosisIdSQL = "SELECT NEW models.DiagnosisId(MAX(diagnosisId))FROM Diagnosis d WHERE diagnosisId < :diagnosisId";
+        DiagnosisId previousDiagnosisId = jpaApi.em().createQuery(previousDiagnosisIdSQL, DiagnosisId.class).setParameter("diagnosisId", diagnosisId).getSingleResult();
+
+
+
+
+        return ok(views.html.diagnosispage.render(diagnosis, nextDiagnosisId.getId(),previousDiagnosisId.getId()));
     }
 
 }

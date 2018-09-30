@@ -12,9 +12,11 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 
 
 <h1 align="center">Provider Search</h1>
+<form action="@routes.MHAHomeController.getMentalHealthProfessionalDetail" method="GET">
+    @helper.CSRF.formField
 
 <label for="title">Title</label>
-<select type="text" id="title">
+<select type="text" name="titleId" id="title">
     @for(title <- titles) {
     <option value="@title.getTitleId">@title.getTitleName</option>
     }
@@ -57,10 +59,10 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 </select><br><br>
 
 
-    <label for="diagnosis">Suspected Diagnosis</label><br>
+<label for="diagnosis">Suspected Diagnosis</label><br>
         <form action="/action_page.php">
             @for(diagnosis <- diagnosis) {
-            <input type="checkbox" name="diagnosis" value="@diagnosis.getDiagnosisId"> @diagnosis.getDiagnosisName
+            <input type="checkbox" name="diagnosis" value="@diagnosis.getDiagnosisId"><a href="/diagnosispage/@diagnosis.getDiagnosisId">@diagnosis.getDiagnosisName</a>
             }
         </form><br><br>
 
@@ -82,8 +84,7 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 </form><br><br>
 
 <br><br>
-<form action="@routes.MHAHomeController.getMentalHealthProfessionalDetail" method="GET">
-    @helper.CSRF.formField
+
     <input type="submit" value="Search for Provider">
 </form>
 

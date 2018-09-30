@@ -1,0 +1,25 @@
+@(diagnosis : Diagnosis, nextDiagnosisId : Integer, previousDiagnosisId : Integer)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnosis Detail</title>
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+
+</head>
+<body>
+<h1 align="center"> @diagnosis.getDiagnosisName</h1>
+
+
+
+
+<textarea rows="4" cols="50" align="center">
+
+
+    @diagnosis.getDescription
+
+</textarea><br><br>
+<a href="/diagnosispage/@nextDiagnosisId">Next</a>
+<a href ="/diagnosispage/@previousDiagnosisId">Previous</a>
+</body>
+</html>
