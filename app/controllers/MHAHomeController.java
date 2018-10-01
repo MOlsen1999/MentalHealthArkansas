@@ -1,6 +1,7 @@
 package controllers;
 
 import akka.http.javadsl.model.headers.Age;
+import com.amazonaws.services.dynamodbv2.xspec.L;
 import com.amazonaws.services.dynamodbv2.xspec.S;
 import models.*;
 import play.Logger;
@@ -363,13 +364,45 @@ public class MHAHomeController extends Controller
             titleId = Integer.parseInt(title);
         }
 
+        String location = form.get("city");
 
-        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber) " +
+        String language = form.get("languageId");
+        Integer languageId;
+
+        if(language == null || language.equals(""))
+        {
+            languageId = null;
+
+
+        }
+        else
+        {
+            languageId = Integer.parseInt(language);
+        }
+
+        String expertise = form.get("expertiseId");
+        Integer expertiseId;
+
+        if(expertise == null || expertise.equals(""))
+        {
+            expertiseId = null;
+
+
+        }
+        else
+        {
+            expertiseId = Integer.parseInt(expertise);
+        }
+
+        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName) " +
                 " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
                 "JOIN Suffix s ON m.suffixId = s.suffixId " +
-                "WHERE m.titleId = :titleId";
+                "JOIN Language l ON m.languageId = l.languageId " +
+                    "JOIN SpecialExpertise e ON m.expertiseId = e.expertiseId " +
+                " WHERE m.titleId = :titleId AND m.languageId = :languageId AND m.expertiseId = :expertiseId";
 
-        List<MentalHealthProfessionalDetail> name = jpaApi.em().createQuery(sql,MentalHealthProfessionalDetail.class).setParameter("titleId", titleId).getResultList();
+        List<MentalHealthProfessionalDetail> name = jpaApi.em().createQuery(sql,MentalHealthProfessionalDetail.class).setParameter("titleId", titleId).setParameter("languageId",languageId).setParameter("expertiseId", expertiseId).getResultList();
+
 
 
 

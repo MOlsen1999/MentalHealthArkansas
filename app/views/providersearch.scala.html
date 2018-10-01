@@ -16,7 +16,7 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
     @helper.CSRF.formField
 
 <label for="title">Title</label>
-<select type="text" name="titleId" id="title">
+<select  name="titleId" id="title">
     @for(title <- titles) {
     <option value="@title.getTitleId">@title.getTitleName</option>
     }
@@ -24,7 +24,7 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 </select><br><br>
 
 <label for="agerange">Age Range</label>
-<select type="text" id="agerange">
+<select  id="agerange">
 
     <option value="0,6">Under 5</option>
     <option value="6,12">6-12</option>
@@ -35,15 +35,15 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 </select><br><br>
 
 <label for="location">Location: </label>
-<select type="text"  id="location"  value="City">
+<select name="city" id="location"  >
     @for(city <- cities) {
     <option value="@city">@city</option>
 
     }
     </select>
     <br><br>
-<label for="languages">Language </label>
-<select type="text" id="languages">
+<label >Language </label>
+<select  name="languageId" id="languages">
     @for(language <- language) {
     <option value="@language.getLanguageId">@language.getLanguageName</option>
     }
@@ -51,7 +51,7 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 </select><br><br>
 
 <label for="insurance">Insuraces</label>
-<select type="text" id="insurance">
+<select  name="insuranceId" id="insurance">
     @for(insurance <- insurances) {
     <option value="@insurance.getInsuranceId">@insurance.getInsuranceName</option>
     }
@@ -60,28 +60,25 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 
 
 <label for="diagnosis">Suspected Diagnosis</label><br>
-        <form action="/action_page.php">
+
             @for(diagnosis <- diagnosis) {
             <input type="checkbox" name="diagnosis" value="@diagnosis.getDiagnosisId"><a href="/diagnosispage/@diagnosis.getDiagnosisId">@diagnosis.getDiagnosisName</a>
             }
-        </form><br><br>
+       <br><br>
 
                         <label for="expertise">Special Expertise</label>
-                        <form action="/action_page.php">
-                            @for(specialexpertise <- specialexpertise) {
-                            <input type="checkbox" name="expertise" value="@specialexpertise.getExpertiseId"> @specialexpertise.getExpertiseName
-                            }
 
-                        </form><br><br>
+                            @for(specialexpertise <- specialexpertise) {
+                            <input type="checkbox" name="expertiseId" value="@specialexpertise.getExpertiseId"> @specialexpertise.getExpertiseName
+                            }
+                    <br><br>
 
 <label for="treatment">Treatment Modalities Offered</label>
-<form action="/action_page.php">
+
     @for(therapy <- therapy) {
     <input type="checkbox" name="therapy" value="therapy.getTherapyId"> @therapy.getTherapyName
     }
-
-
-</form><br><br>
+<br><br>
 
 <br><br>
 

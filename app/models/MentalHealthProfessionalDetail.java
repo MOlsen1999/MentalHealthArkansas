@@ -21,9 +21,14 @@ public class MentalHealthProfessionalDetail
     private Integer suffixId;
     private String suffix;
     private String phoneNumber;
+    private Integer languageId;
+    private String languageName;
+    private Integer expertiseId;
+    private String expertiseName;
 
 
-    public MentalHealthProfessionalDetail(Integer nameId,Integer titleId, String titleName, String lastName, String firstName, String address, String city, String stateId, Integer zipcode, Integer minPatientAge, Integer maxPatientAge, Integer suffixId, String suffix, String phoneNumber) {
+
+    public MentalHealthProfessionalDetail(Integer nameId,Integer titleId, String titleName, String lastName, String firstName, String address, String city, String stateId, Integer zipcode, Integer minPatientAge, Integer maxPatientAge, Integer suffixId, String suffix, String phoneNumber, Integer languageId, String languageName, Integer expertiseId, String expertiseName) {
 
         this.nameId = nameId;
         this.titleId = titleId;
@@ -39,6 +44,34 @@ public class MentalHealthProfessionalDetail
         this.suffixId = suffixId;
         this.suffix = suffix;
         this.phoneNumber = phoneNumber;
+        this.languageId = languageId;
+        this.languageName= languageName;
+        this.expertiseId = expertiseId;
+        this.expertiseName = expertiseName;
+    }
+
+    public void setExpertiseId(Integer expertiseId) {
+        this.expertiseId = expertiseId;
+    }
+
+    public void setExpertiseName(String expertiseName) {
+        this.expertiseName = expertiseName;
+    }
+
+    public Integer getExpertiseId() {
+        return expertiseId;
+    }
+
+    public String getExpertiseName() {
+        return expertiseName;
+    }
+
+    public String getLanguageName() {
+        return languageName;
+    }
+
+    public void setLanguageName(String languageName) {
+        this.languageName = languageName;
     }
 
     public Integer getNameId() {
@@ -128,12 +161,22 @@ public class MentalHealthProfessionalDetail
         this.city = city;
     }
 
+    public Integer getLanguageId() {
+        return languageId;
+    }
+
     public void setStateId(String stateId) {
         this.stateId = stateId;
+
+    }
+
+    public void setLanguageId(Integer languageId) {
+        this.languageId = languageId;
     }
 
     public void setZipcode(Integer zipcode) {
         this.zipcode = zipcode;
+
     }
 
     public void setMinPatientAge(Integer minPatientAge) {
