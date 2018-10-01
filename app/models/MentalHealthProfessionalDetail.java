@@ -28,7 +28,7 @@ public class MentalHealthProfessionalDetail
 
 
 
-    public MentalHealthProfessionalDetail(Integer nameId,Integer titleId, String titleName, String lastName, String firstName, String address, String city, String stateId, Integer zipcode, Integer minPatientAge, Integer maxPatientAge, Integer suffixId, String suffix, String phoneNumber, Integer languageId, String languageName, Integer expertiseId, String expertiseName) {
+    public MentalHealthProfessionalDetail(Integer nameId, Integer titleId, String titleName, String lastName, String firstName, String address, String city, String stateId, Integer zipcode, Integer minPatientAge, Integer maxPatientAge, Integer suffixId, String suffix, String phoneNumber, Integer languageId, String languageName, Integer expertiseId, String expertiseName) {
 
         this.nameId = nameId;
         this.titleId = titleId;

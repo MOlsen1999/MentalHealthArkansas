@@ -24,26 +24,6 @@ public class MentalHealthProfessional
     private Integer suffixId;
     private String phoneNumber;
     private Integer languageId;
-    private String languageName;
-
-    private String expertiseName;
-
-
-    public void setLanguageName(String languageName) {
-        this.languageName = languageName;
-    }
-
-    public void setExpertiseName(String expertiseName) {
-        this.expertiseName = expertiseName;
-    }
-
-    public String getLanguageName() {
-        return languageName;
-    }
-
-    public String getExpertiseName() {
-        return expertiseName;
-    }
 
     public void setLanguageId(Integer languageId) {
         this.languageId = languageId;

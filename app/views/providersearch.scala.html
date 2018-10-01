@@ -17,6 +17,7 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 
 <label for="title">Title</label>
 <select  name="titleId" id="title">
+    <option value="blank"></option>
     @for(title <- titles) {
     <option value="@title.getTitleId">@title.getTitleName</option>
     }
@@ -25,7 +26,7 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 
 <label for="agerange">Age Range</label>
 <select  id="agerange">
-
+    <option value="blank"></option>
     <option value="0,6">Under 5</option>
     <option value="6,12">6-12</option>
     <option value="12,17">12-17</option>
@@ -35,7 +36,8 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 </select><br><br>
 
 <label for="location">Location: </label>
-<select name="city" id="location"  >
+<select name="city" id="location">
+    <option value="blank"></option>
     @for(city <- cities) {
     <option value="@city">@city</option>
 
@@ -44,34 +46,38 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
     <br><br>
 <label >Language </label>
 <select  name="languageId" id="languages">
+    <option value="blank"></option>
     @for(language <- language) {
     <option value="@language.getLanguageId">@language.getLanguageName</option>
     }
 
 </select><br><br>
 
-<label for="insurance">Insuraces</label>
-<select  name="insuranceId" id="insurance">
-    @for(insurance <- insurances) {
-    <option value="@insurance.getInsuranceId">@insurance.getInsuranceName</option>
+
+
+
+    <label for="expertise">Special Expertise</label>
+    <select name="expertiseId" id="expertise">
+        <option value="blank"></option>
+    @for(specialexpertise <- specialexpertise) {
+    <option value="@specialexpertise.getExpertiseId"> @specialexpertise.getExpertiseName
     }
+    </select><br><br>
 
-</select><br><br>
+    <label for="insurance">Insuraces</label><br>
 
+        @for(insurance <- insurances) {
+        <input type="checkbox" name="insuance" value="@insurance.getInsuranceId">@insurance.getInsuranceName</input>
+        }
+<br><br>
 
-<label for="diagnosis">Suspected Diagnosis</label><br>
+        <label for="diagnosis">Suspected Diagnosis</label><br>
 
             @for(diagnosis <- diagnosis) {
             <input type="checkbox" name="diagnosis" value="@diagnosis.getDiagnosisId"><a href="/diagnosispage/@diagnosis.getDiagnosisId">@diagnosis.getDiagnosisName</a>
             }
        <br><br>
 
-                        <label for="expertise">Special Expertise</label>
-
-                            @for(specialexpertise <- specialexpertise) {
-                            <input type="checkbox" name="expertiseId" value="@specialexpertise.getExpertiseId"> @specialexpertise.getExpertiseName
-                            }
-                    <br><br>
 
 <label for="treatment">Treatment Modalities Offered</label>
 
