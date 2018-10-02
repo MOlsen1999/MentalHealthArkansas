@@ -11,11 +11,11 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 <body>
 
 
-<h1 align="center">Provider Search</h1>
+<h1 align="center"><b>Provider Search </b></h1>
 <form action="@routes.MHAHomeController.getMentalHealthProfessionalDetail" method="GET">
     @helper.CSRF.formField
 
-<label for="title">Title</label>
+<label for="title"><b>Title</b></label>
 <select  name="titleId" id="title">
     <option value="blank"></option>
     @for(title <- titles) {
@@ -24,7 +24,7 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 
 </select><br><br>
 
-<label for="agerange">Age Range</label>
+<label for="agerange"><b>Age Range</b></label>
 <select  id="agerange">
     <option value="blank"></option>
     <option value="0,6">Under 5</option>
@@ -35,7 +35,7 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 
 </select><br><br>
 
-<label for="location">Location: </label>
+<label for="location"><b>Location: </b></label>
 <select name="city" id="location">
     <option value="blank"></option>
     @for(city <- cities) {
@@ -44,7 +44,7 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
     }
     </select>
     <br><br>
-<label >Language </label>
+<label ><b>Language </b></label>
 <select  name="languageId" id="languages">
     <option value="blank"></option>
     @for(language <- language) {
@@ -56,7 +56,7 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
 
 
 
-    <label for="expertise">Special Expertise</label>
+    <label for="expertise"><b>Special Expertise</b></label>
     <select name="expertiseId" id="expertise">
         <option value="blank"></option>
     @for(specialexpertise <- specialexpertise) {
@@ -64,14 +64,14 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
     }
     </select><br><br>
 
-    <label for="insurance">Insuraces</label><br>
+    <label for="insurance"><b>Insuraces</b></label><br>
 
         @for(insurance <- insurances) {
         <input type="checkbox" name="insuance" value="@insurance.getInsuranceId">@insurance.getInsuranceName</input>
         }
 <br><br>
 
-        <label for="diagnosis">Suspected Diagnosis</label><br>
+        <label for="diagnosis"><b>Suspected Diagnosis</b></label><br>
 
             @for(diagnosis <- diagnosis) {
             <input type="checkbox" name="diagnosis" value="@diagnosis.getDiagnosisId"><a href="/diagnosispage/@diagnosis.getDiagnosisId">@diagnosis.getDiagnosisName</a>
@@ -79,7 +79,7 @@ therapy : List[Therapy],language : List[Language], cities : List[String])
        <br><br>
 
 
-<label for="treatment">Treatment Modalities Offered</label>
+<label for="treatment"><b>Treatment Modalities Offered</b></label>
 
     @for(therapy <- therapy) {
     <input type="checkbox" name="therapy" value="therapy.getTherapyId"> @therapy.getTherapyName

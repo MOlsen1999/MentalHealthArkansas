@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class InsuranceAccepted
+public class InsurancAccepted
 {
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer insuranceacceptedId;

@@ -190,7 +190,7 @@ public class MHAHomeController extends Controller
         if (insurance != null)
         {
             for (String insuranceId : insurance) {
-                InsuranceAccepted insuranceAccepted = new InsuranceAccepted();
+                InsurancAccepted insuranceAccepted = new InsurancAccepted();
                 insuranceAccepted.setInsuranceId(insuranceAccepted.getInsuranceId());
                 insuranceAccepted.setInsuranceId(Integer.parseInt(insuranceId));
                 jpaApi.em().persist(insuranceAccepted);
@@ -405,18 +405,21 @@ public class MHAHomeController extends Controller
 
 
 
-        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName) " +
+        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, '' || GROUP_CONCAT(i.insuranceName)) " +
                 " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
                 "JOIN Suffix s ON m.suffixId = s.suffixId " +
                 "JOIN Language l ON m.languageId = l.languageId " +
                     "JOIN SpecialExpertise e ON m.expertiseId = e.expertiseId " +
-                " WHERE m.titleId = :titleId AND m.languageId = :languageId AND m.expertiseId = :expertiseId";
+                "JOIN InsurancAccepted ia ON m.nameId = ia.nameId " +
+                "JOIN Insurance i ON ia.insuranceId = i.insuranceId " +
+                " WHERE m.titleId = :titleId AND m.languageId = :languageId AND m.expertiseId = :expertiseId AND m.nameId = :nameId " +
+                "GROUP BY m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName ";
 
         if (insurance.size() > 0)
         {
 
             sql += "AND m.nameId IN " +
-                    "(SELECT i.nameId FROM InsuranceAccepted i) "+
+                    "(SELECT i.nameId FROM InsurancAccepted i) "+
             "WHERE i.nameId IN :nameId) " ;
         }
         TypedQuery mentalHealthProfessionalDetailQuery = jpaApi.em().createQuery(sql,MentalHealthProfessionalDetail.class).setParameter("titleId", titleId);
@@ -442,12 +445,13 @@ public class MHAHomeController extends Controller
     @Transactional(readOnly = true)
     public Result getNewMentalHealthProfessional(int nameId)
     {
-        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName) " +
+
+        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName) " +
                 " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
                 "JOIN Suffix s ON m.suffixId = s.suffixId " +
                 "JOIN Language l ON m.languageId = l.languageId " +
                 "JOIN SpecialExpertise e ON m.expertiseId = e.expertiseId " +
-                " WHERE m.titleId = :titleId AND m.languageId = :languageId AND m.expertiseId = :expertiseId ";
+                " WHERE m.titleId = :titleId AND m.languageId = :languageId AND m.expertiseId = :expertiseId AND m.nameId = :nameId ";
 
         MentalHealthProfessionalDetail name = jpaApi.em().createQuery(sql, MentalHealthProfessionalDetail.class).setParameter("nameId", nameId).getSingleResult();
 

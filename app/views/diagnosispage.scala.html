@@ -10,16 +10,21 @@
 <body>
 <h1 align="center"> @diagnosis.getDiagnosisName</h1>
 
+<br><br><br>
 
 
 
-<textarea rows="4" cols="50" align="center">
+<p align="center"> @diagnosis.getDescription</p>
 
-
-    @diagnosis.getDescription
-
-</textarea><br><br>
-<a href="/diagnosispage/@nextDiagnosisId">Next</a>
-
+<br><br>
+<button>
+    <a href="/diagnosispage/@nextDiagnosisId" align="center">Next</a>
+</button>
+<button>
+<a href ="/diagnosispage/@previousDiagnosisId" align="center">Previous</a>
+</button>
+<button>
+    <a href="/providersearch" align="center">Provider Search</a>
+</button>
 </body>
 </html>
