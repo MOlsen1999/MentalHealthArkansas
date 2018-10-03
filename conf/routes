@@ -22,3 +22,4 @@ GET     /providerdbinputreturnpage/:nameId                  controllers.MHAHomeC
 
 
 GET     /diagnosispage/:diagnosisId                              controllers.MHAHomeController.getDiagnosisDetails(diagnosisId:Integer)
+

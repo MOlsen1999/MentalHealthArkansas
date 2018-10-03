@@ -3,11 +3,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Retun Page</title>
+    <title>Search Return Page</title>
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
-<h1 align="center">Doc Info Return Page</h1>
+<h1 align="center">Provider Search Information</h1>
 <table  class="table table-striped">
 
      <tr>
@@ -18,7 +18,7 @@
     @for(mentalhealthprofessionaldetail <- mentalhealthprofessionaldetail) {
                 <tr>
                     <td>@mentalhealthprofessionaldetail.getTitleName</td>
-                    <td href="@mentalhealthprofessionaldetail.getFirstName">@mentalhealthprofessionaldetail.getFirstName</td>
+                    <td><a href="/providerdbinputretunpage/:nameId">@mentalhealthprofessionaldetail.getFirstName</a></td>
                     <td>@mentalhealthprofessionaldetail.getLastName</td>
                     <td>@mentalhealthprofessionaldetail.getAddress</td>
                     <td>@mentalhealthprofessionaldetail.getCity</td>
@@ -28,7 +28,6 @@
                     <td>@mentalhealthprofessionaldetail.getPhoneNumber</td>
                     <td>@mentalhealthprofessionaldetail.getMinPatientAge - @mentalhealthprofessionaldetail.getMaxPatientAge</td>
                     <td>@mentalhealthprofessionaldetail.getExpertiseName</td>
-                    <td>@mentalhealthprofessionaldetail.getInsuranceName</td>
                     <td>@mentalhealthprofessionaldetail.getSuffix</td>
                     <td></td>
 

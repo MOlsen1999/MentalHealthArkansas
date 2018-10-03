@@ -410,8 +410,8 @@ public class MHAHomeController extends Controller
                 "JOIN Suffix s ON m.suffixId = s.suffixId " +
                 "JOIN Language l ON m.languageId = l.languageId " +
                     "JOIN SpecialExpertise e ON m.expertiseId = e.expertiseId " +
-                "JOIN InsurancAccepted ia ON m.nameId = ia.nameId " +
-                "JOIN Insurance i ON ia.insuranceId = i.insuranceId " +
+                "LEFT OUTER JOIN InsurancAccepted ia ON m.nameId = ia.nameId " +
+                "LEFT OUTER JOIN Insurance i ON ia.insuranceId = i.insuranceId " +
                 " WHERE m.titleId = :titleId AND m.languageId = :languageId AND m.expertiseId = :expertiseId  " +
                 "GROUP BY m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName ";
 
@@ -445,61 +445,19 @@ public class MHAHomeController extends Controller
     @Transactional(readOnly = true)
     public Result getNewMentalHealthProfessional(int nameId)
     {
-        DynamicForm form = formFactory.form().bindFromRequest();
-
-        String title = form.get("titleId");
-        Integer titleId;
-
-        if(title == null || title.equals(""))
-        {
-            titleId = null;
 
 
-        }
-        else
-        {
-            titleId = Integer.parseInt(title);
-        }
-
-        String expertise = form.get("expertiseId");
-        Integer expertiseId;
-
-        if(expertise == null || expertise.equals(""))
-        {
-            expertiseId = null;
-
-
-        }
-        else
-        {
-            expertiseId = Integer.parseInt(expertise);
-        }
-
-        String language = form.get("languageId");
-        Integer languageId;
-
-        if(language == null || language.equals(""))
-        {
-            languageId = null;
-
-
-        }
-        else
-        {
-            languageId = Integer.parseInt(language);
-        }
-
-        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, '' || GROUP_CONCAT(i.insuranceName)) " +
+        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, ' ' || GROUP_CONCAT(i.insuranceName)) " +
                 " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
                 "JOIN Suffix s ON m.suffixId = s.suffixId " +
                 "JOIN Language l ON m.languageId = l.languageId " +
                 "JOIN SpecialExpertise e ON m.expertiseId = e.expertiseId " +
-                "JOIN InsurancAccepted ia ON m.nameId = ia.nameId " +
-                "JOIN Insurance i ON ia.insuranceId = i.insuranceId " +
-                " WHERE m.titleId = :titleId AND m.languageId = :languageId AND m.expertiseId = :expertiseId AND m.nameId = :nameId ";
+                "LEFT OUTER JOIN InsurancAccepted ia ON m.nameId = ia.nameId " +
+                "LEFT OUTER JOIN Insurance i ON ia.insuranceId = i.insuranceId " +
+                " WHERE m.nameId = :nameId ";
 
 
-        MentalHealthProfessionalDetail name = jpaApi.em().createQuery(sql, MentalHealthProfessionalDetail.class).setParameter("nameId", nameId).setParameter("titleId", titleId).setParameter("expertiseId", expertiseId).setParameter("languageId", languageId).getSingleResult();
+        MentalHealthProfessionalDetail name = jpaApi.em().createQuery(sql, MentalHealthProfessionalDetail.class).setParameter("nameId", nameId).getSingleResult();
 
         return ok(views.html.providerdbinputreturnpage.render(name));
     }
@@ -528,6 +486,7 @@ public class MHAHomeController extends Controller
 
         return ok(views.html.diagnosispage.render(diagnosis, nextDiagnosisId.getId(),previousDiagnosisId.getId()));
     }
+
 
 }
 

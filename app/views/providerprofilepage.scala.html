@@ -1,0 +1,38 @@
+@(mentalhealthprofessionaldetail : MentalHealthProfessionalDetail)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Provider DB Input Return Page</title>
+    <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<h1 align="center">Thank You for Your Information</h1>
+
+
+<h1 align="center">@mentalhealthprofessionaldetail.getFirstName @mentalhealthprofessionaldetail.getLastName</h1>
+
+
+
+<p>@mentalhealthprofessionaldetail.getTitleName</p>
+<p href="@mentalhealthprofessionaldetail.getFirstName">@mentalhealthprofessionaldetail.getFirstName</p>
+<p>@mentalhealthprofessionaldetail.getLastName</p>
+<p>@mentalhealthprofessionaldetail.getAddress</p>
+<p>@mentalhealthprofessionaldetail.getCity</p>
+<p>@mentalhealthprofessionaldetail.getStateId</p>
+<p>@mentalhealthprofessionaldetail.getLanguageName</p>
+<p>@mentalhealthprofessionaldetail.getZipcode</p>
+<p>@mentalhealthprofessionaldetail.getPhoneNumber</p>
+<p>@mentalhealthprofessionaldetail.getMinPatientAge - @mentalhealthprofessionaldetail.getMaxPatientAge</p>
+<p>@mentalhealthprofessionaldetail.getExpertiseName</p>
+<p>@mentalhealthprofessionaldetail.getSuffix</p>
+<br><br>
+
+<button>
+    <a href="/providersearch" align="center">Provider Input</a>
+</button>
+
+
+
+</body>
+</html>
