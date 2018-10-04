@@ -405,13 +405,18 @@ public class MHAHomeController extends Controller
 
 
 
-        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, '' || GROUP_CONCAT(i.insuranceName)) " +
+        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, '' || GROUP_CONCAT(i.insuranceName), '' || GROUP_CONCAT(th.therapyName), '' || GROUP_CONCAT(d.diagnosisName)) " +
                 " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
                 "JOIN Suffix s ON m.suffixId = s.suffixId " +
                 "JOIN Language l ON m.languageId = l.languageId " +
                     "JOIN SpecialExpertise e ON m.expertiseId = e.expertiseId " +
                 "LEFT OUTER JOIN InsurancAccepted ia ON m.nameId = ia.nameId " +
                 "LEFT OUTER JOIN Insurance i ON ia.insuranceId = i.insuranceId " +
+                "LEFT OUTER JOIN ProfessionalTherapy pt ON m.nameId = pt.nameId " +
+                "LEFT OUTER JOIN Therapy th ON pt.therapyId = th.therapyId "+
+                "LEFT OUTER JOIN ProfessionalDiagnosis pd ON m.nameId = pd.nameId " +
+                "LEFT OUTER JOIN Diagnosis d  ON pd.diagnosisId = d.diagnosisId "+
+
                 " WHERE m.titleId = :titleId AND m.languageId = :languageId AND m.expertiseId = :expertiseId  " +
                 "GROUP BY m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName ";
 
@@ -447,13 +452,19 @@ public class MHAHomeController extends Controller
     {
 
 
-        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, ' ' || GROUP_CONCAT(i.insuranceName)) " +
+        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, ' ' || GROUP_CONCAT(i.insuranceName), '' || GROUP_CONCAT(th.therapyName), '' || GROUP_CONCAT(d.diagnosisName)) " +
                 " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
                 "JOIN Suffix s ON m.suffixId = s.suffixId " +
                 "JOIN Language l ON m.languageId = l.languageId " +
                 "JOIN SpecialExpertise e ON m.expertiseId = e.expertiseId " +
                 "LEFT OUTER JOIN InsurancAccepted ia ON m.nameId = ia.nameId " +
                 "LEFT OUTER JOIN Insurance i ON ia.insuranceId = i.insuranceId " +
+                "LEFT OUTER JOIN ProfessionalTherapy pt ON m.nameId = pt.nameId " +
+                "LEFT OUTER JOIN Therapy th ON pt.therapyId = th.therapyId "+
+                "LEFT OUTER JOIN ProfessionalDiagnosis pd ON m.nameId = pd.nameId " +
+                "LEFT OUTER JOIN Diagnosis d  ON pd.diagnosisId = d.diagnosisId "+
+
+
                 " WHERE m.nameId = :nameId ";
 
 
