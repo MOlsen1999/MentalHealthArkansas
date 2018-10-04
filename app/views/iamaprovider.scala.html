@@ -7,6 +7,7 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
     <meta charset="UTF-8">
     <title>I Am A Provider</title>
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/stylesheets/iamaprovider.css">
 
 </head>
 <body>
@@ -18,6 +19,7 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
 
     <label for="titleId"><b>Title</b></label>
     <select type="text" name="titleId" id="titleId">
+        <option value="blank"></option>
         @for(title <- titles) {
         <option value="@title.getTitleId">@title.getTitleName</option>
         }
@@ -31,7 +33,9 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
 <input type="text" class="form-control" id="lastname" name="lastname" value="Last Name"><br><br>
 
     <label for="suffix"><b>Suffix</b></label>
+    <option value="blank"></option>
     <select type="suffix" name="suffix" id="suffix">
+        <option value="blank"></option>
         @for(suffix <- suffix) {
         <option value="@suffix.getSuffixId">@suffix.getSuffix</option>
         }
@@ -47,6 +51,7 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
 
     <label for="organization"><b>Organization</b> </label>
     <select type="text" name="organization" id="organization">
+        <option value="blank"></option>
         @for(organization <- organization) {
         <option value="@organization.getOrganizationId">@organization.getOrganizationName</option>
         }
@@ -70,6 +75,7 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
 
     <label for="languages"><b>Language </b></label>
     <select type="text" name="language" id="languages">
+        <option value="blank"></option>
         @for(language <- language) {
         <option value="@language.getLanguageId">@language.getLanguageName</option>
         }

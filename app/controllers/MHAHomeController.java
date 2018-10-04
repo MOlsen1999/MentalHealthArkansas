@@ -452,7 +452,7 @@ public class MHAHomeController extends Controller
     {
 
 
-        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, ' ' || GROUP_CONCAT(i.insuranceName), '' || GROUP_CONCAT(th.therapyName), '' || GROUP_CONCAT(d.diagnosisName)) " +
+        String sql ="SELECT m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, GROUP_CONCAT(DISTINCT i.insuranceName) AS insuranceName, GROUP_CONCAT(DISTINCT th.therapyName) AS therapyName, GROUP_CONCAT(DISTINCT d.diagnosisName) AS diagnosisName " +
                 " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
                 "JOIN Suffix s ON m.suffixId = s.suffixId " +
                 "JOIN Language l ON m.languageId = l.languageId " +
@@ -463,12 +463,11 @@ public class MHAHomeController extends Controller
                 "LEFT OUTER JOIN Therapy th ON pt.therapyId = th.therapyId "+
                 "LEFT OUTER JOIN ProfessionalDiagnosis pd ON m.nameId = pd.nameId " +
                 "LEFT OUTER JOIN Diagnosis d  ON pd.diagnosisId = d.diagnosisId "+
+                " WHERE m.nameId = :nameId " +
+                "GROUP BY m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName ";
 
 
-                " WHERE m.nameId = :nameId ";
-
-
-        MentalHealthProfessionalDetail name = jpaApi.em().createQuery(sql, MentalHealthProfessionalDetail.class).setParameter("nameId", nameId).getSingleResult();
+        MentalHealthProfessionalDetail name = (MentalHealthProfessionalDetail)jpaApi.em().createNativeQuery(sql, MentalHealthProfessionalDetail.class).setParameter("nameId", nameId).getSingleResult();
 
         return ok(views.html.providerdbinputreturnpage.render(name));
     }

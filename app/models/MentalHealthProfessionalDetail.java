@@ -25,11 +25,15 @@ public class MentalHealthProfessionalDetail
     private String languageName;
     private Integer expertiseId;
     private String expertiseName;
-    private Integer insuranceId;
+
     private String insuranceName;
     private String therapyName;
     private String diagnosisName;
 
+    public MentalHealthProfessionalDetail()
+    {
+
+    }
 
     public MentalHealthProfessionalDetail(Integer nameId, Integer titleId, String titleName, String lastName, String firstName, String address, String city,
                                           String stateId, Integer zipcode, Integer minPatientAge, Integer maxPatientAge, Integer suffixId, String suffix,
@@ -54,7 +58,7 @@ public class MentalHealthProfessionalDetail
         this.languageName= languageName;
         this.expertiseId = expertiseId;
         this.expertiseName = expertiseName;
-        this.insuranceId = insuranceId;
+
         this.insuranceName = insuranceName;
         this.therapyName = therapyName;
         this.diagnosisName = diagnosisName;
@@ -78,17 +82,13 @@ public class MentalHealthProfessionalDetail
         return therapyName;
     }
 
-    public void setInsuranceId(Integer insuranceId) {
-        this.insuranceId = insuranceId;
-    }
+
 
     public void setInsuranceName(String insuranceName) {
         this.insuranceName = insuranceName;
     }
 
-    public Integer getInsuranceId() {
-        return insuranceId;
-    }
+
 
     public String getInsuranceName() {
         return insuranceName;
