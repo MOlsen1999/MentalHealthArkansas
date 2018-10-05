@@ -9,23 +9,25 @@
 
 </head>
 <body>
-<h1 align="center"> @diagnosis.getDiagnosisName</h1>
+<h1 align="center" style="color:snow;"> @diagnosis.getDiagnosisName</h1>
 
 <br><br><br>
 
 
 
-<p align="center"> @diagnosis.getDescription</p>
+<p align="center" style="color:White;"> @diagnosis.getDescription</p>
 
 <br><br>
+<div class="text-center">
 <button>
-    <a href="/diagnosispage/@nextDiagnosisId" align="center">Next</a>
+    <a href="/diagnosispage/@nextDiagnosisId" align="center" class="btn btn-light">Next</a>
 </button>
 <button>
-<a href ="/diagnosispage/@previousDiagnosisId" align="center">Previous</a>
+<a href ="/diagnosispage/@previousDiagnosisId" align="center" class="btn btn-light">Previous</a>
 </button>
 <button>
-    <a href="/providersearch" align="center">Provider Search</a>
+    <a href="/providersearch" align="center" class="btn btn-light">Provider Search</a>
 </button>
+</div>
 </body>
 </html>

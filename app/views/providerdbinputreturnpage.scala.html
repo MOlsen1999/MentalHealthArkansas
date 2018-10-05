@@ -5,36 +5,41 @@
     <meta charset="UTF-8">
     <title>Provider DB Input Return Page</title>
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/stylesheets/accountHistory.css">
+    <link rel="stylesheet" href="/assets/stylesheets/providerdbinputreturnpage.css">
 </head>
 <body style="background-image:/public/images/background.jpg">
-<h1 align="center">Provider Profile</h1>
+<h1 align="center"> @mentalhealthprofessionaldetail.getTitleName @mentalhealthprofessionaldetail.getFirstName @mentalhealthprofessionaldetail.getLastName @mentalhealthprofessionaldetail.getSuffix</h1>
 
 
 
 
 
-
-
-    <p align="center">@mentalhealthprofessionaldetail.getTitleName @mentalhealthprofessionaldetail.getFirstName @mentalhealthprofessionaldetail.getLastName @mentalhealthprofessionaldetail.getSuffix</p>
-    <p align="center">@mentalhealthprofessionaldetail.getAddress @mentalhealthprofessionaldetail.getCity, @mentalhealthprofessionaldetail.getStateId @mentalhealthprofessionaldetail.getZipcode </p>
+<p align="center">@mentalhealthprofessionaldetail.getAddress @mentalhealthprofessionaldetail.getCity, @mentalhealthprofessionaldetail.getStateId @mentalhealthprofessionaldetail.getZipcode </p>
     <p align="center">@mentalhealthprofessionaldetail.getLanguageName</p>
     <p align="center">@mentalhealthprofessionaldetail.getPhoneNumber</p>
     <p align="center">@mentalhealthprofessionaldetail.getMinPatientAge - @mentalhealthprofessionaldetail.getMaxPatientAge</p>
     <p align="center">@mentalhealthprofessionaldetail.getExpertiseName</p>
+    <p align="center">@mentalhealthprofessionaldetail.getServicesName</p>
     <p align="center">@mentalhealthprofessionaldetail.getInsuranceName</p>
     <p align="center">@mentalhealthprofessionaldetail.getTherapyName</p>
     <p align="center">@mentalhealthprofessionaldetail.getDiagnosisName</p>
 
     <br><br>
 
+
+<div class="row">
+    <div class="col-12">
+<div class="text-center">
 <button>
-    <a href="/providersearch" align="center">Provider Search</a>
+    <a href="/providersearch" align="center" class="btn btn-light">Provider Search</a>
 </button>
 
 <button>
-    <a href="/iamaprovider" align="center">Provider Input</a>
+    <a href="/iamaprovider" align="center" class="btn btn-light">Provider Input</a>
 </button>
+    </div>
+        </div>
+    </div>
 
 </body>
 </html>

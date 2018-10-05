@@ -59,9 +59,11 @@ public class MHAHomeController extends Controller
         String citysql = "SELECT DISTINCT m.city FROM MentalHealthProfessional m ORDER by m.city";
         List<String> cities= jpaApi.em().createQuery(citysql,String.class).getResultList();
 
+        String servicessql = "SELECT s FROM Services s";
+        List<Services> services = jpaApi.em().createQuery(servicessql,Services.class).getResultList();
 
 
-        return ok(views.html.providersearch.render(titles, insurances, diagnoses, expertises, therapies, languages, cities));
+        return ok(views.html.providersearch.render(titles, insurances, diagnoses, expertises, therapies, languages, cities, services));
     }
 
 
@@ -120,7 +122,10 @@ public class MHAHomeController extends Controller
         String suffixsql = "SELECT s FROM Suffix s";
         List<Suffix>suffixes = jpaApi.em().createQuery(suffixsql,Suffix.class).getResultList();
 
-        return ok(views.html.iamaprovider.render(titles,cities,insurances,diagnoses,expertises,therapies,languages, organizations, suffixes));
+        String servicessql = "SELECT s FROM Services s";
+        List<Services> services = jpaApi.em().createQuery(servicessql,Services.class).getResultList();
+
+        return ok(views.html.iamaprovider.render(titles,cities,insurances,diagnoses,expertises,therapies,languages, organizations, suffixes, services));
     }
 
     @Transactional
@@ -405,7 +410,7 @@ public class MHAHomeController extends Controller
 
 
 
-        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, '' || GROUP_CONCAT(i.insuranceName), '' || GROUP_CONCAT(th.therapyName), '' || GROUP_CONCAT(d.diagnosisName)) " +
+        String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, '' || GROUP_CONCAT(i.insuranceName), '' || GROUP_CONCAT(th.therapyName), '' || GROUP_CONCAT(d.diagnosisName), '' || GROUP_CONCAT(se.servicesName)) " +
                 " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
                 "JOIN Suffix s ON m.suffixId = s.suffixId " +
                 "JOIN Language l ON m.languageId = l.languageId " +
@@ -416,9 +421,13 @@ public class MHAHomeController extends Controller
                 "LEFT OUTER JOIN Therapy th ON pt.therapyId = th.therapyId "+
                 "LEFT OUTER JOIN ProfessionalDiagnosis pd ON m.nameId = pd.nameId " +
                 "LEFT OUTER JOIN Diagnosis d  ON pd.diagnosisId = d.diagnosisId "+
+                "LEFT OUTER JOIN ProfessionalServices ps ON m.nameId = ps.nameId " +
+                "LEFT OUTER JOIN Services se  ON ps.servicesId = se.servicesId "+
 
                 " WHERE m.titleId = :titleId AND m.languageId = :languageId AND m.expertiseId = :expertiseId  " +
                 "GROUP BY m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName ";
+
+
 
         if (insurance.size() > 0)
         {
@@ -452,7 +461,7 @@ public class MHAHomeController extends Controller
     {
 
 
-        String sql ="SELECT m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, GROUP_CONCAT(DISTINCT i.insuranceName) AS insuranceName, GROUP_CONCAT(DISTINCT th.therapyName) AS therapyName, GROUP_CONCAT(DISTINCT d.diagnosisName) AS diagnosisName " +
+        String sql ="SELECT m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, GROUP_CONCAT(DISTINCT i.insuranceName) AS insuranceName, GROUP_CONCAT(DISTINCT th.therapyName) AS therapyName, GROUP_CONCAT(DISTINCT d.diagnosisName) AS diagnosisName, GROUP_CONCAT(DISTINCT se.servicesName) AS servicesName " +
                 " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
                 "JOIN Suffix s ON m.suffixId = s.suffixId " +
                 "JOIN Language l ON m.languageId = l.languageId " +
@@ -463,6 +472,8 @@ public class MHAHomeController extends Controller
                 "LEFT OUTER JOIN Therapy th ON pt.therapyId = th.therapyId "+
                 "LEFT OUTER JOIN ProfessionalDiagnosis pd ON m.nameId = pd.nameId " +
                 "LEFT OUTER JOIN Diagnosis d  ON pd.diagnosisId = d.diagnosisId "+
+                "LEFT OUTER JOIN ProfessionalServices ps ON m.nameId = ps.nameId " +
+                "LEFT OUTER JOIN Services se  ON ps.servicesId = se.servicesId "+
                 " WHERE m.nameId = :nameId " +
                 "GROUP BY m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName ";
 

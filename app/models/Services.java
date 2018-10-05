@@ -11,10 +11,7 @@ public class Services
     private String servicesName;
 
 
-    public Services(Integer servicesId, String servicesName) {
-        this.servicesId = servicesId;
-        this.servicesName = servicesName;
-    }
+
 
     public Integer getServicesId() {
         return servicesId;

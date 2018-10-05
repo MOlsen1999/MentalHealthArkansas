@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Search Return Page</title>
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/assets/stylesheets/providersearchreturnpage.css">
 </head>
 <body style="background image:/public/images/background.jpg">
 <h1 align="center">Provider Search Information</h1>
@@ -18,7 +20,7 @@
     @for(mentalhealthprofessionaldetail <- mentalhealthprofessionaldetail) {
                 <tr>
                     <td>@mentalhealthprofessionaldetail.getTitleName</td>
-                    <td><a href="/providerdbinputretunpage/:nameId">@mentalhealthprofessionaldetail.getFirstName</a></td>
+                    <td><a href="/providerdbinputreturnpage/@mentalhealthprofessionaldetail.getNameId">@mentalhealthprofessionaldetail.getFirstName</a></td>
                     <td>@mentalhealthprofessionaldetail.getLastName</td>
                     <td>@mentalhealthprofessionaldetail.getCity</td>
                     <td>@mentalhealthprofessionaldetail.getStateId</td>
@@ -33,11 +35,12 @@
 
 </table>
 
-<br><br><br><br>
+<br><br>
+<div class="text-center">
 <form action="@routes.MHAHomeController.getProviderSearch" method="GET">
     @helper.CSRF.formField
-    <input type="submit" value="Search Again">
+    <input type="submit" value="Search Again" class="btn btn-light">
 </form>
-
+</div>
 </body>
 </html>

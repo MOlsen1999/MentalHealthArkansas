@@ -1,5 +1,5 @@
 @(titles : List[Title], mentalhealthprofessional : List[MentalHealthProfessional], insurances : List[Insurance], diagnosis : List[Diagnosis],
-specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : List[Language], organization : List[Organization], suffix : List[Suffix])
+specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : List[Language], organization : List[Organization], suffix : List[Suffix], services: List[Services])
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,15 +25,20 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
         }
 </select><br><br>
 
-
+<div class="row">
+    <div class="col-4">
 <label for="firstname"><b>First Name: </b></label>
 <input type="text" class="form-control" id="firstname" name="firstname" value="First Name"><br><br>
+    </div> </div>
 
+    <div class="row">
+    <div class="col-4">
     <label for="lastname"><b>Last Name: </b></label>
 <input type="text" class="form-control" id="lastname" name="lastname" value="Last Name"><br><br>
+    </div> </div>
+
 
     <label for="suffix"><b>Suffix</b></label>
-    <option value="blank"></option>
     <select type="suffix" name="suffix" id="suffix">
         <option value="blank"></option>
         @for(suffix <- suffix) {
@@ -41,12 +46,18 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
         }
     </select><br><br>
 
+    <div class="row">
+        <div class="col-4">
     <label for="minage"><b>Minimum Patient Age: </b></label>
 <input type="text" class="form-control" id="minage" name="minage" value="Minimum Patient Age"><br><br>
+        </div> </div>
 
 
+    <div class="row">
+        <div class="col-4">
 <label for="maxage"><b>Maximum Patient Age: </b></label>
 <input type="text" class="form-control" id="maxage" name="maxage" value="Maximum Patient Age"><br><br>
+        </div> </div>
 
 
     <label for="organization"><b>Organization</b> </label>
@@ -57,21 +68,35 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
         }
     </select><br><br>
 
+    <div class="row">
+        <div class="col-4">
     <label for="address"> <b>Address: </b></label>
 <input type="text" class="form-control" id="address" name="address" value="Address"><br><br>
+        </div> </div>
 
+    <div class="row">
+        <div class="col-4">
 <label for="city"><b>City: </b></label>
 <input type="text" class="form-control" id="city" name="city" value="City"><br><br>
+        </div> </div>
 
+    <div class="row">
+        <div class="col-4">
 <label for="state"><b>State: </b></label>
 <input type="text" class="form-control" id="state" name="state" value="State"><br><br>
+        </div> </div>
 
-<label for="zip"><b>Zip Code: </b></label>
+    <div class="row">
+        <div class="col-4">
+        <label for="zip"><b>Zip Code: </b></label>
 <input type="text" class="form-control" id="zip" name="zipcode" value="Zip Code"><br><br>
+        </div> </div>
 
-
+    <div class="row">
+        <div class="col-4">
 <label for="phonenumber"><b>Phone Number: </b></label>
 <input type="text" class="form-control" id="phonenumber" name="phonenumber" value="Phone Number"><br><br>
+        </div></div>
 
     <label for="languages"><b>Language </b></label>
     <select type="text" name="language" id="languages">
@@ -81,43 +106,67 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
         }
     </select><br><br>
 
-    <label for="insurance"><b>Insuraces Accepted</b></label>
+
+<div class="text-light">
+    <div class="row">
+        <div class="col-8">
+    <label for="insurance"><b>Insurances Accepted</b></label><br>
 
             @for(insurance <- insurances) {
             <input type="checkbox" name="insurance[]" value="@insurance.getInsuranceId">@insurance.getInsuranceName</input>
             }
+        </div></div></div>
 <br><br>
-
-    <label for="expertise"> <b>Special Expertise</b></label>
+    <div class="text-light">
+        <div class="row">
+            <div class="col-12">
+    <label for="expertise"> <b>Special Expertise</b></label><br>
 
     @for(specialexpertise <- specialexpertise) {
     <input type="checkbox" name="expertise" value="@specialexpertise.getExpertiseId"> @specialexpertise.getExpertiseName
     }
+            </div></div></div>
     <br><br>
+    <div class="text-light">
+        <div class="row">
+            <div class="col-8">
+                <label for="services"><b>Services</b></label><br>
 
+                @for(services <- services) {
+                <input type="checkbox" name="services[]" value="@services.getServicesId">@services.getServicesName</input>
+                }
+            </div></div></div><br>
 
+    <div class="text-light">
+        <div class="row">
+            <div class="col-10">
         <label for="diagnosis"><b>I Prefer Seeing Patients with the Following Diagnosis </b></label><br>
 
             @for(diagnosis <- diagnosis) {
             <input type="checkbox" name="diagnosis[]" value="@diagnosis.getDiagnosisId"> @diagnosis.getDiagnosisName
             }
+            </div></div></div>
 <br><br>
 
 
-
-        <label for="treatment"> <b>Treatment Modalities Offered</b></label>
+    <div class="text-light">
+        <div class="row">
+            <div class="col-10">
+        <label for="treatment"> <b>Treatment Modalities Offered</b></label><br>
 
             @for(therapy <- therapy) {
             <input type="checkbox" name="treatment[]" value="therapy.getTherapyId"> @therapy.getTherapyName
             }
-
-
+            </div></div></div>
 <br><br>
 
 
+    <div class="text-center">
 
-<input type="submit" value="Save">
+        <button type="submit" class="btn btn-light">Save</button>
+    </div>
 </form>
+
 </body>
 
 </html>

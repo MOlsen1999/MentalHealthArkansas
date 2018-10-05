@@ -1,7 +1,7 @@
 h1{color: white;
  text-shadow: 2px 2px #000000;}
 
-p{color:white;
+table{color:white;
  text-shadow: 2px 2px #000000;
  font-size: 125%;}
 
@@ -11,5 +11,3 @@ body  {
  background-size: 100%;
 
      }
-
-     input{text-shadow: 2px 2px #000000; }

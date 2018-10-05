@@ -29,6 +29,7 @@ public class MentalHealthProfessionalDetail
     private String insuranceName;
     private String therapyName;
     private String diagnosisName;
+    private String servicesName;
 
     public MentalHealthProfessionalDetail()
     {
@@ -38,7 +39,7 @@ public class MentalHealthProfessionalDetail
     public MentalHealthProfessionalDetail(Integer nameId, Integer titleId, String titleName, String lastName, String firstName, String address, String city,
                                           String stateId, Integer zipcode, Integer minPatientAge, Integer maxPatientAge, Integer suffixId, String suffix,
                                           String phoneNumber, Integer languageId, String languageName, Integer expertiseId, String expertiseName,
-                                           String insuranceName, String therapyName, String diagnosisName) {
+                                           String insuranceName, String therapyName, String diagnosisName, String servicesName) {
 
         this.nameId = nameId;
         this.titleId = titleId;
@@ -62,8 +63,18 @@ public class MentalHealthProfessionalDetail
         this.insuranceName = insuranceName;
         this.therapyName = therapyName;
         this.diagnosisName = diagnosisName;
+        this.servicesName = servicesName;
 
 
+
+    }
+
+    public void setServicesName(String servicesName) {
+        this.servicesName = servicesName;
+    }
+
+    public String getServicesName() {
+        return servicesName;
     }
 
     public void setDiagnosisName(String diagnosisName) {
