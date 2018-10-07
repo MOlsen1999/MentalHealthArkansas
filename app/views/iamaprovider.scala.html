@@ -130,7 +130,7 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
     <div class="text-light">
         <div class="row">
             <div class="col-8">
-                <label for="services"><b>Services</b></label><br>
+                <label for="services"><b>Services Offered</b></label><br>
 
                 @for(services <- services) {
                 <input type="checkbox" name="services[]" value="@services.getServicesId">@services.getServicesName</input>
@@ -155,7 +155,7 @@ specialexpertise : List[SpecialExpertise], therapy : List[Therapy],language : Li
         <label for="treatment"> <b>Treatment Modalities Offered</b></label><br>
 
             @for(therapy <- therapy) {
-            <input type="checkbox" name="treatment[]" value="therapy.getTherapyId"> @therapy.getTherapyName
+            <input type="checkbox" name="treatment[]" value="@therapy.getTherapyId"> @therapy.getTherapyName
             }
             </div></div></div>
 <br><br>

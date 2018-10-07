@@ -158,67 +158,14 @@ public class MHAHomeController extends Controller
         String  suffixsql = "SELECT s FROM Suffix s";
         List<Suffix>suffixes = jpaApi.em().createQuery(suffixsql,Suffix.class).getResultList();
 
+        String servicessql = "SELECT s FROM Services s";
+        List<Services> services = jpaApi.em().createQuery(servicessql,Services.class).getResultList();
+
         DynamicForm form = formFactory.form().bindFromRequest();
         Map<String, String[]> map = request().body().asFormUrlEncoded();
 
-        String[] therapy = map.get("treatment");
-        Logger.debug("Checkbox:" + form.get("treatment[]"));
-
-        if(therapy != null)
-        {
-            for(String therapyId:therapy)
-            {
-                ProfessionalTherapy professionalTherapy = new ProfessionalTherapy();
-                professionalTherapy.setTherapyId(professionalTherapy.getTherapyId());
-                professionalTherapy.setTherapyId(Integer.parseInt(therapyId));
-                jpaApi.em().persist(professionalTherapy);
-            }
-
-         }
-
-        String expertise = form.get("expertise");
-        Integer expertiseId ;
-
-        if(expertise == null || expertise.equals(""))
-        {
-            expertiseId = null;
-        }
-        else
-        {
-            expertiseId = Integer.parseInt(expertise);
-        }
-
-
-        String[] insurance = map.get("insurance");
-        Logger.debug("Checkbox:" + form.get("insurance[]"));
-
-        if (insurance != null)
-        {
-            for (String insuranceId : insurance) {
-                InsurancAccepted insuranceAccepted = new InsurancAccepted();
-                insuranceAccepted.setInsuranceId(insuranceAccepted.getInsuranceId());
-                insuranceAccepted.setInsuranceId(Integer.parseInt(insuranceId));
-                jpaApi.em().persist(insuranceAccepted);
-            }
-        }
-
-        String[] diagnosis = map.get("diagnosis");
-        Logger.debug("Checkbox: " + form.get("diagnosis[]"));
-
-        if (diagnosis != null)
-        {
-            for(String diagnosisId:diagnosis)
-            {
-                ProfessionalDiagnosis professionalDiagnosis = new ProfessionalDiagnosis();
-                professionalDiagnosis.setDiagnosisId(professionalDiagnosis.getDiagnosisId());
-                professionalDiagnosis.setDiagnosisId(Integer.parseInt(diagnosisId));
-                jpaApi.em().persist(professionalDiagnosis);
-            }
-        }
-
         String firstName = form.get("firstname");
         String lastName = form.get("lastname");
-
 
         String suffixIdText = form.get("suffix");
         Integer suffixId;
@@ -233,7 +180,6 @@ public class MHAHomeController extends Controller
         }
 
         String address = form.get("address");
-
 
         String city = form.get("city");
 
@@ -252,7 +198,6 @@ public class MHAHomeController extends Controller
         {
             organizationId = Integer.parseInt(organizationIdText);
         }
-
 
 
         String minPatientAgeText = form.get("minage");
@@ -292,6 +237,18 @@ public class MHAHomeController extends Controller
         }
 
 
+        String expertise = form.get("expertise");
+        Integer expertiseId ;
+
+        if(expertise == null || expertise.equals(""))
+        {
+            expertiseId = null;
+        }
+        else
+        {
+            expertiseId = Integer.parseInt(expertise);
+        }
+
 
         String languageIdText = form.get("language");
         Integer languageId;
@@ -311,7 +268,6 @@ public class MHAHomeController extends Controller
         if(titleIdText == null || titleIdText.equals(""))
         {
             titleId = null;
-
 
         }
         else
@@ -339,7 +295,61 @@ public class MHAHomeController extends Controller
 
         jpaApi.em().persist(mentalHealthProfessional);
 
+        String[] insurance = map.get("insurance[]");
+        Logger.debug("Checkbox:" + form.get("insurance[]"));
 
+        if (insurance != null)
+        {
+            for (String insuranceId : insurance) {
+                InsurancAccepted insuranceAccepted = new InsurancAccepted();
+                insuranceAccepted.setNameId(mentalHealthProfessional.getNameId());
+                insuranceAccepted.setInsuranceId(insuranceAccepted.getInsuranceId());
+                insuranceAccepted.setInsuranceId(Integer.parseInt(insuranceId));
+                jpaApi.em().persist(insuranceAccepted);
+            }
+        }
+        String[] diagnosis = map.get("diagnosis[]");
+        Logger.debug("Checkbox: " + form.get("diagnosis[]"));
+
+        if (diagnosis != null)
+        {
+            for(String diagnosisId:diagnosis)
+            {
+                ProfessionalDiagnosis professionalDiagnosis = new ProfessionalDiagnosis();
+                professionalDiagnosis.setNameId(mentalHealthProfessional.getNameId());
+                professionalDiagnosis.setDiagnosisId(professionalDiagnosis.getDiagnosisId());
+                professionalDiagnosis.setDiagnosisId(Integer.parseInt(diagnosisId));
+                jpaApi.em().persist(professionalDiagnosis);
+            }
+        }
+        String[] therapy = map.get("treatment[]");
+        Logger.debug("Checkbox:" + form.get("treatment[]"));
+
+        if(therapy != null)
+        {
+            for(String therapyId:therapy)
+            {
+                ProfessionalTherapy professionalTherapy = new ProfessionalTherapy();
+                professionalTherapy.setNameId(mentalHealthProfessional.getNameId());
+                professionalTherapy.setTherapyId(Integer.parseInt(therapyId));
+                jpaApi.em().persist(professionalTherapy);
+            }
+
+        }
+        String[] service = map.get("services[]");
+        Logger.debug("Checkbox: " + form.get("services[]"));
+
+        if (service != null)
+        {
+            for (String servicesId:service)
+            {
+                ProfessionalServices professionalServices = new ProfessionalServices();
+                professionalServices.setNameId(mentalHealthProfessional.getNameId());
+                professionalServices.setServicesId(professionalServices.getServicesId());
+                professionalServices.setServicesId(Integer.parseInt(servicesId));
+                jpaApi.em().persist(professionalServices);
+            }
+        }
 
 
         return ok("Your Information was Saved into the Database!");
