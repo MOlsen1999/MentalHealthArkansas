@@ -406,7 +406,7 @@ public class MHAHomeController extends Controller
         }
 
         Map<String, String[]> formValues = request().queryString();
-        String textValues[] = formValues.get("insurance");
+        String textValues[] = formValues.get("insurance[]");
 
         List<Integer> insurance = new ArrayList<>();
         if (textValues != null)
@@ -419,7 +419,7 @@ public class MHAHomeController extends Controller
         Logger.debug("Got" + insurance.size() + "insurance");
 
         Map<String, String[]> formValues1 = request().queryString();
-        String textValues1[] = formValues1.get("services");
+        String textValues1[] = formValues1.get("services[]");
 
         List<Integer> services = new ArrayList<>();
         if(textValues1 != null)
@@ -432,7 +432,7 @@ public class MHAHomeController extends Controller
         Logger.debug("Got" + services.size() + "services");
 
         Map<String, String[]>formValues2 = request().queryString();
-        String textValues2[] = formValues2.get("diagnosis");
+        String textValues2[] = formValues2.get("diagnosis[]");
 
         List<Integer>diagnosis = new ArrayList<>();
         if (textValues2 != null)
@@ -444,6 +444,18 @@ public class MHAHomeController extends Controller
         }
         Logger.debug("Got" + diagnosis.size() + "diagnosis");
 
+        Map<String, String[]>formValues3 = request().queryString();
+        String textValues3[] = formValues3.get("therapy[]");
+
+        List<Integer>therapy = new ArrayList<>();
+        if (textValues3 != null)
+        {
+            for (String textValue3: textValues3)
+            {
+                diagnosis.add(Integer.parseInt(textValue3));
+            }
+        }
+        Logger.debug("Got" + therapy.size() + "therapy");
 
         String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, '' || GROUP_CONCAT(i.insuranceName), '' || GROUP_CONCAT(th.therapyName), '' || GROUP_CONCAT(d.diagnosisName), '' || GROUP_CONCAT(se.servicesName)) " +
                 " FROM MentalHealthProfessional m JOIN Title t ON m.titleId = t.titleId " +
@@ -459,8 +471,7 @@ public class MHAHomeController extends Controller
                 "LEFT OUTER JOIN ProfessionalServices ps ON m.nameId = ps.nameId " +
                 "LEFT OUTER JOIN Services se  ON ps.servicesId = se.servicesId "+
 
-                " WHERE m.titleId = :titleId AND m.languageId = :languageId AND m.expertiseId = :expertiseId  " +
-                "GROUP BY m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName ";
+                " WHERE m.titleId = :titleId AND m.languageId = :languageId AND m.expertiseId = :expertiseId  " ;
 
 
 
@@ -468,23 +479,33 @@ public class MHAHomeController extends Controller
         {
 
             sql += "AND m.nameId IN " +
-                    "(SELECT i.nameId FROM InsurancAccepted i) "+
-            "WHERE i.nameId IN :nameId) " ;
+                    "(SELECT i.nameId FROM InsurancAccepted i "+
+                    "WHERE i.insuranceId IN :insuranceIds) " ;
         }
 
         if (services.size() > 0)
         {
             sql +="AND m.nameId IN "+
                     "(SELECT ps.nameId FROM ProfessionalServices ps " +
-                    " WHERE ps.nameId IN :nameId) ";
+                    " WHERE ps.servicesId IN :servicesIds) ";
         }
 
         if (diagnosis.size() > 0)
         {
             sql += "AND m.nameId IN " +
                     " (SELECT pd.nameId FROM ProfessionalDiagnosis pd " +
-                    " WHERE pd.nameId IN :nameId ";
+                    " WHERE pd.diagnosisId IN :diagnosisIds) ";
         }
+
+        if (therapy.size() > 0)
+        {
+            sql += "AND m.nameId IN " +
+                    " (SELECT pt.nameId FROM ProfessionalTherapy pt " +
+                    " WHERE pt.therapyId IN :therapyIds) ";
+        }
+
+
+        sql += "GROUP BY m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName ";
 
 
         TypedQuery mentalHealthProfessionalDetailQuery = jpaApi.em().createQuery(sql,MentalHealthProfessionalDetail.class).setParameter("titleId", titleId);
@@ -499,6 +520,25 @@ public class MHAHomeController extends Controller
             mentalHealthProfessionalDetailQuery.setParameter("expertiseId", expertiseId);
         }
 
+        if(insurance.size() > 0)
+        {
+            mentalHealthProfessionalDetailQuery.setParameter("insuranceIds", insurance);
+        }
+
+        if(services.size() > 0)
+        {
+            mentalHealthProfessionalDetailQuery.setParameter("servicesIds", services);
+        }
+
+        if(diagnosis.size() > 0)
+        {
+            mentalHealthProfessionalDetailQuery.setParameter("diagnosisIds", diagnosis);
+        }
+
+        if(therapy.size() > 0)
+        {
+            mentalHealthProfessionalDetailQuery.setParameter("therapyIds", therapy);
+        }
 
         List<MentalHealthProfessionalDetail> name = mentalHealthProfessionalDetailQuery.getResultList();
 

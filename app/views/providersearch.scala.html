@@ -76,10 +76,10 @@ therapy : List[Therapy], language : List[Language], cities : List[String], servi
     <div class="text-light">
         <div class="row">
             <div class="col-8">
-    <label for="insurance"><b>Insurances</b></label><br>
+    <label ><b>Insurances</b></label><br>
 
         @for(insurance <- insurances) {
-        <input type="checkbox" name="insuance" value="@insurance.getInsuranceId">@insurance.getInsuranceName</input>
+        <input type="checkbox" name="insurance[]" value="@insurance.getInsuranceId">@insurance.getInsuranceName</input>
         }
             </div></div></div>
 <br>
@@ -89,7 +89,7 @@ therapy : List[Therapy], language : List[Language], cities : List[String], servi
                 <label for="services"><b>Services</b></label><br>
 
                 @for(services <- services) {
-                <input type="checkbox" name="services" value="@services.getServicesId">@services.getServicesName</input>
+                <input type="checkbox" name="services[]" value="@services.getServicesId">@services.getServicesName</input>
                 }
             </div></div></div><br>
 
@@ -99,7 +99,7 @@ therapy : List[Therapy], language : List[Language], cities : List[String], servi
         <label for="diagnosis"><b>Suspected Diagnosis</b></label><br>
 
             @for(diagnosis <- diagnosis) {
-            <input type="checkbox" name="diagnosis" value="@diagnosis.getDiagnosisId"><a href="/diagnosispage/@diagnosis.getDiagnosisId">@diagnosis.getDiagnosisName</a>
+            <input type="checkbox" name="diagnosis[]" value="@diagnosis.getDiagnosisId"><a href="/diagnosispage/@diagnosis.getDiagnosisId">@diagnosis.getDiagnosisName</a>
             }
             </div></div></div>
        <br><br>
@@ -110,7 +110,7 @@ therapy : List[Therapy], language : List[Language], cities : List[String], servi
 <label for="treatment"><b>Treatment Modalities Offered</b></label><br>
 
     @for(therapy <- therapy) {
-    <input type="checkbox" name="therapy" value="therapy.getTherapyId"> @therapy.getTherapyName
+    <input type="checkbox" name="therapy[]" value="@therapy.getTherapyId"> @therapy.getTherapyName
     }
             </div></div></div>
 <br>

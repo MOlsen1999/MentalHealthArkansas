@@ -38,6 +38,4 @@ public class Diagnosis
     {
         this.description = description;
     }
-
-
 }
