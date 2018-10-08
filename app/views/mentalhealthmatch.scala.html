@@ -6,19 +6,22 @@
     <link rel="stylesheet" href="/assets/lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/stylesheets/providerdbinputreturnpage.css">
 </head>
+
 <body>
 <h1 align="center">Mental Health Match</h1>
+<br><br><br><br><br><br><br><br>
 <div class="text-center">
-<form action="@routes.MHAHomeController.getProviderInfo" method="GET">
+<form action="/providersearch" ]>
     @helper.CSRF.formField
 
 <button align="center" type="button"  class="btn btn-light" >I Am A Provider</button><br><br>
 </form></div>
 
 <div class="text-center">
-<form action="@routes.MHAHomeController.getProviderSearch" method="GET">
+<form action="/iamaprovider">
     @helper.CSRF.formField
 <button  align="center" type="button"  class="btn btn-light">I Am Searching For A Provider</button>
+</form>
 </div>
 </form>
 </body>

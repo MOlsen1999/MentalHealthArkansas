@@ -32,7 +32,7 @@ public class MHAHomeController extends Controller
 
     public Result getMHAHome()
     {
-        return ok(views.html.home.render());
+        return ok(views.html.mentalhealthmatch.render());
     }
 
     @Transactional
@@ -418,6 +418,31 @@ public class MHAHomeController extends Controller
         }
         Logger.debug("Got" + insurance.size() + "insurance");
 
+        Map<String, String[]> formValues1 = request().queryString();
+        String textValues1[] = formValues1.get("services");
+
+        List<Integer> services = new ArrayList<>();
+        if(textValues1 != null)
+        {
+            for(String textValue1 : textValues1)
+            {
+                services.add(Integer.parseInt(textValue1));
+            }
+        }
+        Logger.debug("Got" + services.size() + "services");
+
+        Map<String, String[]>formValues2 = request().queryString();
+        String textValues2[] = formValues2.get("diagnosis");
+
+        List<Integer>diagnosis = new ArrayList<>();
+        if (textValues2 != null)
+        {
+            for (String textValue2: textValues2)
+            {
+                diagnosis.add(Integer.parseInt(textValue2));
+            }
+        }
+        Logger.debug("Got" + diagnosis.size() + "diagnosis");
 
 
         String sql ="SELECT NEW models.MentalHealthProfessionalDetail(m.nameId, t.titleId, t.titleName, m.lastName, m.firstName, m.address, m.city, m.stateId, m.zipcode, m.minPatientAge, m.maxPatientAge, s.suffixId, s.suffix, m.phoneNumber, m.languageId, l.languageName, m.expertiseId, e.expertiseName, '' || GROUP_CONCAT(i.insuranceName), '' || GROUP_CONCAT(th.therapyName), '' || GROUP_CONCAT(d.diagnosisName), '' || GROUP_CONCAT(se.servicesName)) " +
@@ -446,6 +471,22 @@ public class MHAHomeController extends Controller
                     "(SELECT i.nameId FROM InsurancAccepted i) "+
             "WHERE i.nameId IN :nameId) " ;
         }
+
+        if (services.size() > 0)
+        {
+            sql +="AND m.nameId IN "+
+                    "(SELECT ps.nameId FROM ProfessionalServices ps " +
+                    " WHERE ps.nameId IN :nameId) ";
+        }
+
+        if (diagnosis.size() > 0)
+        {
+            sql += "AND m.nameId IN " +
+                    " (SELECT pd.nameId FROM ProfessionalDiagnosis pd " +
+                    " WHERE pd.nameId IN :nameId ";
+        }
+
+
         TypedQuery mentalHealthProfessionalDetailQuery = jpaApi.em().createQuery(sql,MentalHealthProfessionalDetail.class).setParameter("titleId", titleId);
 
         if(languageId != null)
