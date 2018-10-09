@@ -593,7 +593,11 @@ public class MHAHomeController extends Controller
         String previousDiagnosisIdSQL = "SELECT NEW models.DiagnosisId(MAX(diagnosisId))FROM Diagnosis d WHERE diagnosisId < :diagnosisId";
         DiagnosisId previousDiagnosisId = jpaApi.em().createQuery(previousDiagnosisIdSQL, DiagnosisId.class).setParameter("diagnosisId", diagnosisId).getSingleResult();
 
-
+        if (previousDiagnosisId.getId() == null)
+        {
+            String maxDiagnosisIdSQL = "SELECT NEW models.DiagnosisId(MAX(diagnosisId)) From Diagnosis d";
+            previousDiagnosisId = jpaApi.em().createQuery(maxDiagnosisIdSQL,DiagnosisId.class).getSingleResult();
+        }
 
 
         return ok(views.html.diagnosispage.render(diagnosis, nextDiagnosisId.getId(),previousDiagnosisId.getId()));
